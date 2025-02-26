@@ -1,0 +1,256 @@
+/*components.css - Formularios, botones, tarjetas*/
+/* Form Elements */
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    transition: var(--transition);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+}
+
+input:focus, select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.1);
+    background-color: var(--card-color);
+}
+
+button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 14px 26px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 6px rgba(255, 64, 129, 0.2);
+}
+
+button:hover {
+    background-color: #f50057;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(255, 64, 129, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(255, 64, 129, 0.2);
+}
+
+/* Result Cards */
+.result-card {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.result-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.anime-title {
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    min-height: 2.8rem;
+    font-weight: 600;
+}
+
+.submitter-tag {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-top: 12px;
+    font-weight: 500;
+    backdrop-filter: blur(5px);
+}
+
+.badges-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.badge-calidad {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.card-body {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+.info-item {
+    display: flex;
+    margin-bottom: 12px;
+    align-items: flex-start;
+}
+
+.info-label {
+    font-weight: 600;
+    width: 100px;
+    flex-shrink: 0;
+    color: var(--light-text);
+}
+
+.info-value {
+    flex-grow: 1;
+    color: var(--text-color);
+}
+
+.subtitulos-tipo {
+    color: var(--light-text);
+    font-size: 0.9rem;
+    margin-left: 5px;
+}
+
+/* Stats */
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid var(--card-footer-border);
+}
+
+.stat {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: block;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--light-text);
+}
+
+.seeders { color: var(--success-color); }
+.leechers { color: var(--warning-color); }
+.downloads { color: var(--secondary-color); }
+
+/* Card Footer */
+.card-footer {
+    padding: 15px 20px;
+    background-color: var(--card-footer-bg);
+    border-top: 1px solid var(--card-footer-border);
+    display: flex;
+    gap: 10px;
+}
+
+.download-btn {
+    flex-grow: 1;
+    background-color: var(--primary-color);
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: var(--transition);
+    box-shadow: 0 2px 5px rgba(98, 0, 234, 0.2);
+}
+
+.download-btn:hover {
+    background-color: var(--primary-dark);
+    box-shadow: 0 4px 8px rgba(98, 0, 234, 0.3);
+    transform: translateY(-2px);
+}
+
+.copy-btn {
+    background-color: var(--secondary-color);
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    box-shadow: 0 2px 5px rgba(0, 176, 255, 0.2);
+}
+
+.copy-btn:hover {
+    background-color: var(--secondary-dark);
+    box-shadow: 0 4px 8px rgba(0, 176, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.copy-icon {
+    width: 18px;
+    height: 18px;
+    fill: white;
+}
