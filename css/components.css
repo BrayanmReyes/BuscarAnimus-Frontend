@@ -254,3 +254,117 @@ button:active {
     height: 18px;
     fill: white;
 }
+
+/* Estilos para los botones de Stremio */
+.stremio-web-btn,
+.stremio-desktop-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #8E44AD;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.stremio-web-btn:hover,
+.stremio-desktop-btn:hover {
+    background-color: #6C3483;
+}
+
+.stremio-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    fill: currentColor;
+}
+
+/* Ajustar layout del card-footer para los nuevos botones */
+.card-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 12px;
+}
+
+.download-btn {
+    grid-column: 1;
+}
+
+.stremio-web-btn {
+    grid-column: 2;
+}
+
+.stremio-desktop-btn {
+    grid-column: 3;
+}
+
+.copy-btn {
+    grid-column: 4;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .card-footer {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+    }
+    
+    .download-btn {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    
+    .stremio-web-btn {
+        grid-column: 2;
+        grid-row: 1;
+    }
+    
+    .stremio-desktop-btn {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    .copy-btn {
+        grid-column: 2;
+        grid-row: 2;
+        justify-self: end;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-footer {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, auto);
+    }
+    
+    .download-btn,
+    .stremio-web-btn,
+    .stremio-desktop-btn,
+    .copy-btn {
+        grid-column: 1;
+    }
+    
+    .download-btn {
+        grid-row: 1;
+    }
+    
+    .stremio-web-btn {
+        grid-row: 2;
+    }
+    
+    .stremio-desktop-btn {
+        grid-row: 3;
+    }
+    
+    .copy-btn {
+        grid-row: 4;
+        justify-self: center;
+    }
+}

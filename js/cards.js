@@ -100,6 +100,18 @@ const CardBuilder = (function() {
                 </div>
                 <div class="card-footer">
                     <a href="${item.enlaceMagnet}" class="download-btn button">Descargar en torrent</a>
+                    <button class="stremio-web-btn" data-magnet="${item.enlaceMagnet}" title="Ver en Stremio Web">
+                        <svg class="stremio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l5-3-5-3v6z"/>
+                        </svg>
+                        <span>Stremio Web</span>
+                    </button>
+                    <button class="stremio-desktop-btn" data-magnet="${item.enlaceMagnet}" title="Ver en Stremio Escritorio">
+                        <svg class="stremio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L22 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/>
+                        </svg>
+                        <span>Stremio App</span>
+                    </button>
                     <button class="copy-btn" data-magnet="${item.enlaceMagnet}" title="Copiar enlace magnet">
                         <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
@@ -125,12 +137,54 @@ const CardBuilder = (function() {
                 window.location.href = this.getAttribute('href');
             });
             
+            // Configurar botón de Stremio Web
+            const stremioWebBtn = card.querySelector('.stremio-web-btn');
+            stremioWebBtn.addEventListener('click', function() {
+                const magnetLink = this.getAttribute('data-magnet');
+                openInStremio(magnetLink, 'web');
+            });
+            
+            // Configurar botón de Stremio Desktop
+            const stremioDesktopBtn = card.querySelector('.stremio-desktop-btn');
+            stremioDesktopBtn.addEventListener('click', function() {
+                const magnetLink = this.getAttribute('data-magnet');
+                openInStremio(magnetLink, 'desktop');
+            });
+            
             // Configurar botón de copiar al portapapeles
             const copyBtn = card.querySelector('.copy-btn');
             copyBtn.addEventListener('click', function() {
                 const magnetLink = this.getAttribute('data-magnet');
                 Utils.copyToClipboard(magnetLink);
             });
+            
+            // Función para abrir en Stremio según la versión
+            function openInStremio(magnetLink, version) {
+                // Extraer info hash correctamente
+                const infoHashMatch = magnetLink.match(/urn:btih:([a-f0-9]+)/i);
+                if (!infoHashMatch) {
+                    UI.showError('El enlace magnet no contiene un info hash válido.');
+                    return;
+                }
+                const infoHash = infoHashMatch[1].toLowerCase();
+                
+                // Construir URL según versión
+                let url;
+                switch(version) {
+                    case 'web':
+                        url = `https://web.stremio.com/#/detail/other/bt:${infoHash}`;
+                        break;
+                    case 'desktop':
+                        url = `stremio://detail/other/bt:${infoHash}`;
+                        break;
+                    default:
+                        UI.showError('Versión de Stremio no válida.');
+                        return;
+                }
+                
+                // Abrir en nueva pestaña
+                window.open(url, '_blank');
+            }
         }
     };
 })();
