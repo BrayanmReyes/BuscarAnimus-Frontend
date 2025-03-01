@@ -27,8 +27,8 @@ const UI = (function() {
             resultsCount.textContent = `Se encontraron ${data.length} resultados`;
             
             // Mostrar filtros
-            filtersContent.classList.add('show');
-            document.getElementById('toggle-filters').querySelector('.toggle-text').textContent = 'Ocultar filtros';
+            //filtersContent.classList.add('show');
+            //document.getElementById('toggle-filters').querySelector('.toggle-text').textContent = 'Ocultar filtros';
             
             // Limpiar resultados anteriores
             resultsGrid.innerHTML = '';

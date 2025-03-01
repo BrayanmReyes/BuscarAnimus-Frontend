@@ -17,21 +17,41 @@ const FiltersManager = (function() {
     return {
         // Inicializar los filtros
         init: function() {
+            // Asegurarse de que los filtros estén ocultos al inicio (solo el contenido)
+            if (filtersContent) {
+                filtersContent.classList.remove('show');
+            }
+            
+            // Asegurarse de que el texto del botón sea correcto al inicio
+            if (toggleFiltersBtn) {
+                const toggleText = toggleFiltersBtn.querySelector('.toggle-text');
+                if (toggleText) {
+                    toggleText.textContent = 'Mostrar filtros';
+                }
+            }
+            
             this.setupEventListeners();
         },
         
         // Configurar los listeners de eventos
         setupEventListeners: function() {
             // Toggle para mostrar/ocultar filtros
-            toggleFiltersBtn.addEventListener('click', function() {
-                filtersContent.classList.toggle('show');
-                const toggleText = toggleFiltersBtn.querySelector('.toggle-text');
-                if (filtersContent.classList.contains('show')) {
-                    toggleText.textContent = 'Ocultar filtros';
-                } else {
-                    toggleText.textContent = 'Mostrar filtros';
-                }
-            });
+            if (toggleFiltersBtn && filtersContent) {
+                toggleFiltersBtn.addEventListener('click', function() {
+                    // Solo alternar la clase show en el contenido de los filtros
+                    filtersContent.classList.toggle('show');
+                    
+                    // Actualizar el texto del botón
+                    const toggleText = toggleFiltersBtn.querySelector('.toggle-text');
+                    if (toggleText) {
+                        if (filtersContent.classList.contains('show')) {
+                            toggleText.textContent = 'Ocultar filtros';
+                        } else {
+                            toggleText.textContent = 'Mostrar filtros';
+                        }
+                    }
+                });
+            }
             
             // Botón aplicar filtros
             applyFiltersBtn.addEventListener('click', () => {
@@ -54,6 +74,9 @@ const FiltersManager = (function() {
         
         // Extraer submitters únicos de los datos
         extractSubmitters: function(data) {
+            // Verificar que el elemento existe
+            if (!submitterFilter) return;
+                        
             // Limpiar opciones anteriores excepto la primera
             while (submitterFilter.options.length > 1) {
                 submitterFilter.remove(1);
