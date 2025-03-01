@@ -99,18 +99,20 @@ const CardBuilder = (function() {
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="${item.enlaceMagnet}" class="download-btn button">Descargar en torrent</a>
+                    <a href="${item.enlaceMagnet}" class="download-btn">
+                        <span>Descargar torrent</span>
+                    </a>
                     <button class="stremio-web-btn" data-magnet="${item.enlaceMagnet}" title="Ver en Stremio Web">
                         <svg class="stremio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l5-3-5-3v6z"/>
                         </svg>
-                        <span>Stremio Web</span>
+                        <span>Ver en Web</span>
                     </button>
                     <button class="stremio-desktop-btn" data-magnet="${item.enlaceMagnet}" title="Ver en Stremio Escritorio">
                         <svg class="stremio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L22 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/>
                         </svg>
-                        <span>Stremio App</span>
+                        <span>Abrir App</span>
                     </button>
                     <button class="copy-btn" data-magnet="${item.enlaceMagnet}" title="Copiar enlace magnet">
                         <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
