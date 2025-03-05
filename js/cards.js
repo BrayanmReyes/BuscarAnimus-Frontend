@@ -190,7 +190,62 @@ const CardBuilder = (function() {
         
         // El resto del código de configuración de eventos permanece sin cambios
         setupCardEvents: function(card) {
-            // ... (código existente que no cambia) ...
+            // Configurar botón de descarga
+            const downloadBtn = card.querySelector('.download-btn');
+            downloadBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = this.getAttribute('href');
+            });
+            
+            // Configurar botón de Stremio Web
+            const stremioWebBtn = card.querySelector('.stremio-web-btn');
+            stremioWebBtn.addEventListener('click', function() {
+                const magnetLink = this.getAttribute('data-magnet');
+                openInStremio(magnetLink, 'web');
+            });
+            
+            // Configurar botón de Stremio Desktop
+            const stremioDesktopBtn = card.querySelector('.stremio-desktop-btn');
+            stremioDesktopBtn.addEventListener('click', function() {
+                const magnetLink = this.getAttribute('data-magnet');
+                openInStremio(magnetLink, 'desktop');
+            });
+            
+            // Configurar botón de copiar al portapapeles
+            const copyBtn = card.querySelector('.copy-btn');
+            copyBtn.addEventListener('click', function() {
+                const magnetLink = this.getAttribute('data-magnet');
+                Utils.copyToClipboard(magnetLink);
+            });
+            
+            // Función para abrir en Stremio según la versión
+            function openInStremio(magnetLink, version) {
+                // Extraer info hash correctamente
+                const infoHashMatch = magnetLink.match(/urn:btih:([a-f0-9]+)/i);
+                if (!infoHashMatch) {
+                    UI.showError('El enlace magnet no contiene un info hash válido.');
+                    return;
+                }
+                const infoHash = infoHashMatch[1].toLowerCase();
+                
+                // Construir URL según versión
+                let url;
+                switch(version) {
+                    case 'web':
+                        url = `https://web.stremio.com/#/detail/other/bt:${infoHash}`;
+                        break;
+                    case 'desktop':
+                        url = `stremio://detail/other/bt:${infoHash}`;
+                        break;
+                    default:
+                        UI.showError('Versión de Stremio no válida.');
+                        return;
+                }
+                
+                // Abrir en nueva pestaña
+                window.open(url, '_blank');
+            }
+
         }
     };
 })();
