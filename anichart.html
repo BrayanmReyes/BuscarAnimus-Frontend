@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime en emisión</title>
+    <link rel="icon" type="image/gif" href="https://i.pinimg.com/originals/ba/f9/ab/baf9ab65f11b280b184fbab633024be3.gif">
+    <!-- Archivos CSS separados -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/filters.css">
+    <link rel="stylesheet" href="css/anichart-nav.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>Anime en Emisión</h1>
+                <p class="subtitle">Calendario de anime actualmente en emisión</p>
+            </div>
+            <div class="theme-toggle-wrapper">
+                <span class="theme-icon light-icon">☀️</span>
+                <label class="theme-toggle">
+                    <input type="checkbox" id="theme-toggle-input">
+                    <span class="theme-toggle-slider"></span>
+                </label>
+                <span class="theme-icon dark-icon">🌙</span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="search-area">
+            <div class="nav-buttons">
+                <a href="index.html" class="nav-button">← Volver al Buscador</a>
+            </div>
+        </div>
+        
+        <div id="error-message" class="error-message"></div>
+        
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Cargando calendario de anime...</p>
+        </div>
+        
+        <div class="anichart-container">
+            <!-- Aquí incrustamos el iframe de anichart -->
+            <iframe src="https://anichart.net/airing" frameborder="0" scrolling="yes">
+                Tu navegador no soporta iframes.
+            </iframe>
+        </div>
+    </div>
+    
+    <!-- Archivos JS separados -->
+    <script>
+        // Script para manejar la visualización responsiva del iframe
+        window.addEventListener('load', function() {
+            const container = document.querySelector('.anichart-container');
+            const iframe = container.querySelector('iframe');
+            
+            // Función para ajustar el iframe en dispositivos móviles
+            function adjustIframeForMobile() {
+                if (window.innerWidth <= 768) {
+                    // En mobile, permite el desplazamiento horizontal
+                    container.style.overflowX = 'auto';
+                    iframe.style.minWidth = '768px';
+                } else {
+                    // En escritorio, comportamiento normal
+                    container.style.overflowX = 'hidden';
+                    iframe.style.minWidth = 'auto';
+                }
+            }
+            
+            // Ajustar al cargar y al cambiar el tamaño de la ventana
+            adjustIframeForMobile();
+            window.addEventListener('resize', adjustIframeForMobile);
+        });
+    </script>
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/cards.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/filters.js"></script>
+</body>
+</html>
