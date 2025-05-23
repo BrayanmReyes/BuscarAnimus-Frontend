@@ -26,10 +26,6 @@ const UI = (function() {
             resultsArea.style.display = 'block';
             resultsCount.textContent = `Se encontraron ${data.length} resultados`;
             
-            // Mostrar filtros
-            //filtersContent.classList.add('show');
-            //document.getElementById('toggle-filters').querySelector('.toggle-text').textContent = 'Ocultar filtros';
-            
             // Limpiar resultados anteriores
             resultsGrid.innerHTML = '';
             
@@ -46,6 +42,9 @@ const UI = (function() {
                 noResultsMsg.textContent = 'No hay resultados que coincidan con los filtros seleccionados';
                 resultsGrid.appendChild(noResultsMsg);
             }
+            
+            // Initialize event listeners for the newly created cards
+            CardBuilder.init(resultsGrid);
         },
         
         // Mostrar mensaje de error

@@ -4,19 +4,17 @@ const CardBuilder = (function() {
     return {
         // Función para detectar número de episodio
         detectEpisodeNumber: function(title) {
-            // Patrones comunes para números de episodio
+            // Patrones comunes para números de episodio, ordenados de más específico a más general
             const patterns = [
-                /\bE(\d{1,3})\b/i,                          // Formato E01, E1, E001
-                /\bEP(\d{1,3})\b/i,                         // Formato EP01, EP1, EP001
-                /\bEpisodio\s*(\d{1,3})\b/i,                // Formato Episodio 1, Episodio 01
-                /\bCapitulo\s*(\d{1,3})\b/i,                // Formato Capitulo 1, Capitulo 01
-                /\b(\d{1,3})[vV]\d{1}\b/,                   // Formato 01v2 (versión)
-                /\b[Ss](\d{1,2})[Ee](\d{1,3})\b/,           // Formato S01E01
-                /\s(\d{1,2})x(\d{1,3})\b/,                  // Formato 1x01
+                /\b[Ss](\d{1,2})[Ee](\d{1,3})\b/,           // Formato S01E01 (Episode in group 2)
+                /\s(\d{1,2})x(\d{1,3})\b/,                  // Formato 1x01 (Episode in group 2)
+                /\bE[Pp]?(\d{1,3})\b/i,                     // Formato E01, EP01, Ep01, e01 etc.
+                /\b(?:Episodio|Capitulo)\s*(\d{1,3})\b/i,   // Formato Episodio 1, Capitulo 01
+                /\b#(\d{1,3})\b/,                           // Formato #01
                 /\s-\s(\d{1,3})\s/,                         // Formato - 01 -
                 /\s(\d{1,3})\s?of\s?\d{1,3}\b/i,            // Formato 01 of 12
-                /\s(\d{1,3})([\s\.\-\_])(?!season|s\d)/i,    // Formato general con separador después
-                /\b#(\d{1,3})\b/,                           // Formato #01
+                /\b(\d{1,3})[vV]\d{1}\b/,                   // Formato 01v2 (versión) - Potentially ambiguous
+                /\s(\d{1,3})([\s\.\-\_])(?!season|s\d|[vV]\d)/i,    // Formato general con separador (avoiding seasons, versions)
             ];
             
             // Buscar coincidencias con los patrones
@@ -41,211 +39,286 @@ const CardBuilder = (function() {
         createResultCard: function(item) {
             const card = document.createElement('div');
             card.className = 'result-card';
-            
-            // Extraer submitter (grupos como Erai-raws, SubsPlease, etc.)
+
+            // --- Card Header ---
+            const cardHeader = document.createElement('div');
+            cardHeader.className = 'card-header';
+
+            // Extraer submitter
             const submitterRegex = /\[(.*?)\]/;
             const submitterMatch = submitterRegex.exec(item.nombre);
             const submitter = submitterMatch ? submitterMatch[1] : null;
-            
-            // Formatear nombre para título (eliminar tags comunes)
-            let title = item.nombre
+
+            // Formatear nombre para título
+            let titleText = item.nombre
                 .replace(/\[.*?\]/g, '')
                 .replace(/\(.*?\)/g, '')
                 .replace(/\.mkv$|\.mp4$/i, '')
                 .trim();
-            
-            // Si el título es muy largo, acortarlo
-            if (title.length > 100) {
-                title = title.substring(0, 100) + '...';
+            if (titleText.length > 100) {
+                titleText = titleText.substring(0, 100) + '...';
             }
-            
+
             // Detectar número de episodio
             const episodeNumber = this.detectEpisodeNumber(item.nombre);
-            
-            let fecha = item.fecha.formateada || item.fecha.original || 'Fecha desconocida';
-            
-            // Preparar la información de subtítulos y calidad
-            const subtitulos = item.subtitulos || { texto: 'No disponible', tipo: '' };
-            const calidad = item.calidad || { resolucion: '', fuente: '', codec: '', audio: '' };
-            
-            // Crear badges para calidad y subtítulos
-            const calidadBadges = [];
-            if (calidad.resolucion) calidadBadges.push(calidad.resolucion);
-            if (calidad.fuente) calidadBadges.push(calidad.fuente);
-            if (calidad.codec) calidadBadges.push(calidad.codec);
-            if (calidad.audio) calidadBadges.push(calidad.audio);
-            
-            // Template para la tarjeta
-            let cardHTML = `
-                <div class="card-header">`;
-            
-            // Agregar badge de episodio si se detectó
             if (episodeNumber !== null) {
-                cardHTML += `<span class="episode-badge">EP ${episodeNumber}</span>`;
+                const episodeBadge = document.createElement('span');
+                episodeBadge.className = 'episode-badge';
+                episodeBadge.textContent = `EP ${episodeNumber}`;
+                cardHeader.appendChild(episodeBadge);
             }
-            
-            cardHTML += `
-                    <h3 class="anime-title">${title}</h3>`;
-            
-            // Añadir submitter solo si se encontró
+
+            const animeTitle = document.createElement('h3');
+            animeTitle.className = 'anime-title';
+            animeTitle.textContent = titleText;
+            cardHeader.appendChild(animeTitle);
+
             if (submitter) {
-                cardHTML += `<div class="submitter-tag">${submitter}</div>`;
+                const submitterTag = document.createElement('div');
+                submitterTag.className = 'submitter-tag';
+                submitterTag.textContent = submitter;
+                cardHeader.appendChild(submitterTag);
             }
-            
-            // Añadir badges de calidad si están disponibles
-            if (calidadBadges.length > 0) {
-                cardHTML += `<div class="badges-container">`;
-                calidadBadges.forEach(badge => {
-                    cardHTML += `<span class="badge badge-calidad">${badge}</span>`;
+
+            // Calidad Badges
+            const calidad = item.calidad || { resolucion: '', fuente: '', codec: '', audio: '' };
+            const calidadBadgesData = [];
+            if (calidad.resolucion) calidadBadgesData.push(calidad.resolucion);
+            if (calidad.fuente) calidadBadgesData.push(calidad.fuente);
+            if (calidad.codec) calidadBadgesData.push(calidad.codec);
+            if (calidad.audio) calidadBadgesData.push(calidad.audio);
+
+            if (calidadBadgesData.length > 0) {
+                const badgesContainer = document.createElement('div');
+                badgesContainer.className = 'badges-container';
+                calidadBadgesData.forEach(badgeText => {
+                    const badge = document.createElement('span');
+                    badge.className = 'badge badge-calidad';
+                    badge.textContent = badgeText;
+                    badgesContainer.appendChild(badge);
                 });
-                cardHTML += `</div>`;
+                cardHeader.appendChild(badgesContainer);
             }
-            
-            cardHTML += `
-                </div>
-                <div class="card-body">
-                    <ul class="info-list">
-                        <li class="info-item">
-                            <span class="info-label">Fecha:</span>
-                            <span class="info-value">${fecha}</span>
-                        </li>
-                        <li class="info-item">
-                            <span class="info-label">Tamaño:</span>
-                            <span class="info-value">${item.tamano || 'No disponible'}</span>
-                        </li>`;
-            
-            // Añadir información de subtítulos
+            card.appendChild(cardHeader);
+
+            // --- Card Body ---
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body';
+            const infoList = document.createElement('ul');
+            infoList.className = 'info-list';
+
+            // Fecha
+            let fechaText = item.fecha.formateada || item.fecha.original || 'Fecha desconocida';
+            const fechaItem = document.createElement('li');
+            fechaItem.className = 'info-item';
+            const fechaLabel = document.createElement('span');
+            fechaLabel.className = 'info-label';
+            fechaLabel.textContent = 'Fecha:';
+            const fechaValue = document.createElement('span');
+            fechaValue.className = 'info-value';
+            fechaValue.textContent = fechaText;
+            fechaItem.appendChild(fechaLabel);
+            fechaItem.appendChild(fechaValue);
+            infoList.appendChild(fechaItem);
+
+            // Tamaño
+            const tamanoItem = document.createElement('li');
+            tamanoItem.className = 'info-item';
+            const tamanoLabel = document.createElement('span');
+            tamanoLabel.className = 'info-label';
+            tamanoLabel.textContent = 'Tamaño:';
+            const tamanoValue = document.createElement('span');
+            tamanoValue.className = 'info-value';
+            tamanoValue.textContent = item.tamano || 'No disponible';
+            tamanoItem.appendChild(tamanoLabel);
+            tamanoItem.appendChild(tamanoValue);
+            infoList.appendChild(tamanoItem);
+
+            // Subtítulos
+            const subtitulos = item.subtitulos || { texto: 'No disponible', tipo: '' };
             if (subtitulos.texto || subtitulos.tipo) {
-                cardHTML += `
-                        <li class="info-item">
-                            <span class="info-label">Subtítulos:</span>
-                            <span class="info-value">
-                                ${subtitulos.texto || 'No disponible'}
-                                ${subtitulos.tipo ? `<span class="subtitulos-tipo">(${subtitulos.tipo})</span>` : ''}
-                            </span>
-                        </li>`;
+                const subtitulosItem = document.createElement('li');
+                subtitulosItem.className = 'info-item';
+                const subtitulosLabel = document.createElement('span');
+                subtitulosLabel.className = 'info-label';
+                subtitulosLabel.textContent = 'Subtítulos:';
+                const subtitulosValue = document.createElement('span');
+                subtitulosValue.className = 'info-value';
+                subtitulosValue.textContent = subtitulos.texto || 'No disponible';
+                if (subtitulos.tipo) {
+                    const tipoSpan = document.createElement('span');
+                    tipoSpan.className = 'subtitulos-tipo';
+                    tipoSpan.textContent = ` (${subtitulos.tipo})`;
+                    subtitulosValue.appendChild(tipoSpan);
+                }
+                subtitulosItem.appendChild(subtitulosLabel);
+                subtitulosItem.appendChild(subtitulosValue);
+                infoList.appendChild(subtitulosItem);
             }
-            
-            // Añadir información del episodio en el cuerpo de la tarjeta si se detectó
+
+            // Episodio en cuerpo
             if (episodeNumber !== null) {
-                cardHTML += `
-                        <li class="info-item">
-                            <span class="info-label">Episodio:</span>
-                            <span class="info-value episode-number">${episodeNumber}</span>
-                        </li>`;
+                const episodioItem = document.createElement('li');
+                episodioItem.className = 'info-item';
+                const episodioLabel = document.createElement('span');
+                episodioLabel.className = 'info-label';
+                episodioLabel.textContent = 'Episodio:';
+                const episodioValue = document.createElement('span');
+                episodioValue.className = 'info-value episode-number';
+                episodioValue.textContent = episodeNumber;
+                episodioItem.appendChild(episodioLabel);
+                episodioItem.appendChild(episodioValue);
+                infoList.appendChild(episodioItem);
             }
-            
-            cardHTML += `
-                    </ul>
-                    <div class="stats">
-                        <div class="stat">
-                            <span class="stat-value seeders">${item.seeders || 0}</span>
-                            <span class="stat-label">Seeders</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-value leechers">${item.leechers || 0}</span>
-                            <span class="stat-label">Leechers</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-value downloads">${item.downloads || 0}</span>
-                            <span class="stat-label">Descargas</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="download-actions">
-                        <a href="${item.enlaceMagnet}" class="download-btn">
-                            <span>Descargar torrent</span>
-                        </a>
-                        <button class="copy-btn" data-magnet="${item.enlaceMagnet}" title="Copiar enlace magnet">
-                            <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="stremio-actions">
-                        <button class="stremio-web-btn" data-magnet="${item.enlaceMagnet}" title="Ver en Stremio Web">
-                            <svg class="stremio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l5-3-5-3v6z"/>
-                            </svg>
-                            <span>Ver en Web</span>
-                        </button>
-                        <button class="stremio-desktop-btn" data-magnet="${item.enlaceMagnet}" title="Ver en Stremio Escritorio">
-                            <svg class="stremio-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L22 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/>
-                            </svg>
-                            <span>Abrir App</span>
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            card.innerHTML = cardHTML;
-            
-            // Configurar eventos
-            this.setupCardEvents(card);
+            cardBody.appendChild(infoList);
+
+            // Stats
+            const statsDiv = document.createElement('div');
+            statsDiv.className = 'stats';
+            ['seeders', 'leechers', 'downloads'].forEach(statName => {
+                const statContainer = document.createElement('div');
+                statContainer.className = 'stat';
+                const statValue = document.createElement('span');
+                statValue.className = `stat-value ${statName}`;
+                statValue.textContent = item[statName] || 0;
+                const statLabel = document.createElement('span');
+                statLabel.className = 'stat-label';
+                statLabel.textContent = statName.charAt(0).toUpperCase() + statName.slice(1);
+                statContainer.appendChild(statValue);
+                statContainer.appendChild(statLabel);
+                statsDiv.appendChild(statContainer);
+            });
+            cardBody.appendChild(statsDiv);
+            card.appendChild(cardBody);
+
+            // --- Card Footer ---
+            const cardFooter = document.createElement('div');
+            cardFooter.className = 'card-footer';
+
+            // Download Actions
+            const downloadActions = document.createElement('div');
+            downloadActions.className = 'download-actions';
+            const downloadBtn = document.createElement('a');
+            downloadBtn.href = item.enlaceMagnet;
+            downloadBtn.className = 'download-btn';
+            const downloadBtnSpan = document.createElement('span');
+            downloadBtnSpan.textContent = 'Descargar torrent';
+            downloadBtn.appendChild(downloadBtnSpan);
+            downloadActions.appendChild(downloadBtn);
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.setAttribute('data-magnet', item.enlaceMagnet);
+            copyBtn.title = 'Copiar enlace magnet';
+            const copyIconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            copyIconSvg.setAttribute('class', 'copy-icon');
+            copyIconSvg.setAttribute('viewBox', '0 0 24 24');
+            const copyIconPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            copyIconPath.setAttribute('d', 'M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z');
+            copyIconSvg.appendChild(copyIconPath);
+            copyBtn.appendChild(copyIconSvg);
+            downloadActions.appendChild(copyBtn);
+            cardFooter.appendChild(downloadActions);
+
+            // Stremio Actions
+            const stremioActions = document.createElement('div');
+            stremioActions.className = 'stremio-actions';
+
+            const stremioWebBtn = document.createElement('button');
+            stremioWebBtn.className = 'stremio-web-btn';
+            stremioWebBtn.setAttribute('data-magnet', item.enlaceMagnet);
+            stremioWebBtn.title = 'Ver en Stremio Web';
+            const stremioWebIconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            stremioWebIconSvg.setAttribute('class', 'stremio-icon');
+            stremioWebIconSvg.setAttribute('viewBox', '0 0 24 24');
+            const stremioWebIconPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            stremioWebIconPath.setAttribute('d', 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l5-3-5-3v6z');
+            stremioWebIconSvg.appendChild(stremioWebIconPath);
+            stremioWebBtn.appendChild(stremioWebIconSvg);
+            const stremioWebBtnSpan = document.createElement('span');
+            stremioWebBtnSpan.textContent = 'Ver en Web';
+            stremioWebBtn.appendChild(stremioWebBtnSpan);
+            stremioActions.appendChild(stremioWebBtn);
+
+            const stremioDesktopBtn = document.createElement('button');
+            stremioDesktopBtn.className = 'stremio-desktop-btn';
+            stremioDesktopBtn.setAttribute('data-magnet', item.enlaceMagnet);
+            stremioDesktopBtn.title = 'Ver en Stremio Escritorio';
+            const stremioDesktopIconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            stremioDesktopIconSvg.setAttribute('class', 'stremio-icon');
+            stremioDesktopIconSvg.setAttribute('viewBox', '0 0 24 24');
+            const stremioDesktopIconPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            stremioDesktopIconPath.setAttribute('d', 'M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L22 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z');
+            stremioDesktopIconSvg.appendChild(stremioDesktopIconPath);
+            stremioDesktopBtn.appendChild(stremioDesktopIconSvg);
+            const stremioDesktopBtnSpan = document.createElement('span');
+            stremioDesktopBtnSpan.textContent = 'Abrir App';
+            stremioDesktopBtn.appendChild(stremioDesktopBtnSpan);
+            stremioActions.appendChild(stremioDesktopBtn);
+            cardFooter.appendChild(stremioActions);
+
+            card.appendChild(cardFooter);
             
             return card;
         },
         
-        // El resto del código de configuración de eventos permanece sin cambios
-        setupCardEvents: function(card) {
-            // Configurar botón de descarga
-            const downloadBtn = card.querySelector('.download-btn');
-            downloadBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.href = this.getAttribute('href');
-            });
-            
-            // Configurar botón de Stremio Web
-            const stremioWebBtn = card.querySelector('.stremio-web-btn');
-            stremioWebBtn.addEventListener('click', function() {
-                const magnetLink = this.getAttribute('data-magnet');
-                openInStremio(magnetLink, 'web');
-            });
-            
-            // Configurar botón de Stremio Desktop
-            const stremioDesktopBtn = card.querySelector('.stremio-desktop-btn');
-            stremioDesktopBtn.addEventListener('click', function() {
-                const magnetLink = this.getAttribute('data-magnet');
-                openInStremio(magnetLink, 'desktop');
-            });
-            
-            // Configurar botón de copiar al portapapeles
-            const copyBtn = card.querySelector('.copy-btn');
-            copyBtn.addEventListener('click', function() {
-                const magnetLink = this.getAttribute('data-magnet');
-                Utils.copyToClipboard(magnetLink);
-            });
-            
-            // Función para abrir en Stremio según la versión
-            function openInStremio(magnetLink, version) {
-                // Extraer info hash correctamente
-                const infoHashMatch = magnetLink.match(/urn:btih:([a-f0-9]+)/i);
-                if (!infoHashMatch) {
-                    UI.showError('El enlace magnet no contiene un info hash válido.');
-                    return;
-                }
-                const infoHash = infoHashMatch[1].toLowerCase();
-                
-                // Construir URL según versión
-                let url;
-                switch(version) {
-                    case 'web':
-                        url = `https://web.stremio.com/#/detail/other/bt:${infoHash}`;
-                        break;
-                    case 'desktop':
-                        url = `stremio://detail/other/bt:${infoHash}`;
-                        break;
-                    default:
-                        UI.showError('Versión de Stremio no válida.');
-                        return;
-                }
-                
-                // Abrir en nueva pestaña
-                window.open(url, '_blank');
+        // Private method to open in Stremio
+        _openInStremio: function(magnetLink, version) {
+            // Extraer info hash correctamente
+            const infoHashMatch = magnetLink.match(/urn:btih:([a-f0-9]+)/i);
+            if (!infoHashMatch) {
+                UI.showError('El enlace magnet no contiene un info hash válido.');
+                return;
             }
+            const infoHash = infoHashMatch[1].toLowerCase();
+            
+            // Construir URL según versión
+            let url;
+            switch(version) {
+                case 'web':
+                    url = `https://web.stremio.com/#/detail/other/bt:${infoHash}`;
+                    break;
+                case 'desktop':
+                    url = `stremio://detail/other/bt:${infoHash}`;
+                    break;
+                default:
+                    UI.showError('Versión de Stremio no válida.');
+                    return;
+            }
+            
+            // Abrir en nueva pestaña
+            window.open(url, '_blank');
+        },
 
+        // Initialize event listeners on the results grid
+        init: function(resultsGridElement) {
+            resultsGridElement.addEventListener('click', (event) => {
+                const target = event.target;
+                const card = target.closest('.result-card');
+                if (!card) return;
+
+                const magnetLink = target.getAttribute('data-magnet') || (target.closest('[data-magnet]') ? target.closest('[data-magnet]').getAttribute('data-magnet') : null);
+
+                if (target.matches('.download-btn, .download-btn *')) {
+                    event.preventDefault();
+                    const downloadLink = card.querySelector('.download-btn').href;
+                    if (downloadLink) {
+                        window.location.href = downloadLink;
+                    }
+                } else if (target.matches('.copy-btn, .copy-btn *')) {
+                    if (magnetLink) {
+                        Utils.copyToClipboard(magnetLink);
+                    }
+                } else if (target.matches('.stremio-web-btn, .stremio-web-btn *')) {
+                    if (magnetLink) {
+                        this._openInStremio(magnetLink, 'web');
+                    }
+                } else if (target.matches('.stremio-desktop-btn, .stremio-desktop-btn *')) {
+                    if (magnetLink) {
+                        this._openInStremio(magnetLink, 'desktop');
+                    }
+                }
+            });
         }
     };
 })();

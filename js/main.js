@@ -56,7 +56,39 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(apiUrl)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`Error del servidor: ${response.status} ${response.statusText}`);
+                    let errorMessage;
+                    switch (response.status) {
+                        case 400:
+                            errorMessage = `Solicitud incorrecta (Error 400). Verifica los parámetros enviados.`;
+                            break;
+                        case 401:
+                            errorMessage = `No autorizado (Error 401). Se requiere autenticación.`;
+                            break;
+                        case 403:
+                            errorMessage = `Acceso prohibido al recurso (Error 403).`;
+                            break;
+                        case 404:
+                            errorMessage = `Servidor no encontrado o recurso no disponible (Error 404). Verifica la URL: ${apiUrl}`;
+                            break;
+                        case 500:
+                            errorMessage = `Error interno del servidor (Error 500). Intenta más tarde.`;
+                            break;
+                        case 502:
+                            errorMessage = `Gateway incorrecto (Error 502). El servidor recibió una respuesta inválida.`;
+                            break;
+                        case 503:
+                            errorMessage = `Servicio no disponible (Error 503). El servidor está sobrecargado o en mantenimiento.`;
+                            break;
+                        default:
+                            if (response.status >= 400 && response.status < 500) {
+                                errorMessage = `Error del cliente: ${response.status} - ${response.statusText}. Por favor, verifica la URL y los parámetros.`;
+                            } else if (response.status >= 500 && response.status < 600) {
+                                errorMessage = `Error del servidor: ${response.status} - ${response.statusText}. Por favor, verifica la URL del servidor.`;
+                            } else {
+                                errorMessage = `Error: ${response.status} - ${response.statusText}.`;
+                            }
+                    }
+                    throw new Error(errorMessage);
                 }
                 return response.json();
             })
