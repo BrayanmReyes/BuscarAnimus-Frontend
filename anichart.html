@@ -33,20 +33,17 @@
     </header>
     
     <div class="main-content-wrapper"> <!-- Wrapper added -->
-        <div class="container">
-            <div class="search-area"> <!-- This div seems to only contain nav-buttons, might be re-evaluated later -->
-                <div class="nav-buttons">
-                    <a href="index.html" class="nav-button">← Volver al Buscador</a>
-                </div>
+        <div class="container"> <!-- Container for button, error, loading -->
+            <div class="nav-buttons"> <!-- Directly use nav-buttons -->
+                <a href="index.html" class="nav-button">← Volver al Buscador</a>
             </div>
-            
             <div id="error-message" class="error-message"></div>
-            
             <div id="loading" class="loading">
                 <div class="spinner"></div>
                 <p>Cargando calendario de anime...</p>
             </div>
-            
+        </div>
+        <div class="container"> <!-- New, separate container for the anichart iframe -->
             <div class="anichart-container">
                 <!-- Aquí incrustamos el iframe de anichart -->
                 <iframe src="https://anichart.net/airing" frameborder="0" scrolling="yes" title="AniChart Airing Schedule">

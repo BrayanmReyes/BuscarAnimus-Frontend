@@ -1,30 +1,30 @@
 /*base.css - Estilos base, variables, resets*/
 /*base.css - Modificaciones para un mejor contraste entre temas*/
 :root {
-    --primary-color: #2E5C8A; /* Moderate Blue */
-    --primary-light: #5D8FBC; /* Lighter Blue */
-    --primary-dark: #1E3C5A;  /* Darker Blue */
-    --secondary-color: #00A0B0; /* Teal - kept for elements that might use it, can be adjusted later */
-    --secondary-light: #69D2E7;
-    --secondary-dark: #007A87;
-    --accent-color: #E67E22;    /* Complementary Orange */
+    --primary-color: #5A4FCF;    /* Indigo */
+    --primary-light: #8175FF;    /* Lighter Indigo/Purple */
+    --primary-dark: #4035B8;     /* Darker Indigo */
+    --secondary-color: #14999E;  /* Deep Teal/Cyan */
+    --secondary-light: #22C9CF;
+    --secondary-dark: #0B696D;
+    --accent-color: #E67E22;     /* Orange (kept for now) */
 
     /* Theme specific */
-    --background-color: #F4F7F9; /* Very Light Cool Gray */
+    --background-color: #F8F7FF; /* Very light lavender/off-white */
     --card-color: #FFFFFF;       /* White */
-    --text-color: #34495E;       /* Dark Desaturated Blue/Gray */
-    --light-text: #7F8C8D;       /* Medium Gray */
-    --card-footer-bg: #FDFEFE;   /* Slightly off-white for footer */
-    --card-footer-border: #EAECEE;
+    --text-color: #302E4D;       /* Dark grayish purple */
+    --light-text: #7A7799;       /* Medium grayish purple */
+    --card-footer-bg: #FEFEFF;
+    --card-footer-border: #EDEDF5;
     --input-bg: #FFFFFF;
-    --input-border: #D0D9E0;
+    --input-border: #D8D5F0;
 
-    --success-color: #2ECC71; /* Green */
-    --error-color: #E74C3C;   /* Red */
-    --warning-color: #F39C12; /* Yellow/Orange */
-    --border-radius: 8px; /* Keep existing values or adjust if needed */
-    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07); /* Keep or adjust */
-    --transition: all 0.3s ease; /* Keep */
+    --success-color: #2ECC71; /* Green (can remain standard) */
+    --error-color: #E74C3C;   /* Red (can remain standard) */
+    --warning-color: #F39C12; /* Yellow/Orange (can remain standard) */
+    --border-radius: 8px; 
+    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    --transition: all 0.3s ease;
 }
 
 * {
@@ -56,20 +56,20 @@ body {
 
 /* Tema oscuro controlado completamente por la clase .dark-mode */
 body.dark-mode {
-    --primary-color: #3498DB; /* A slightly brighter blue for dark mode */
-    --primary-light: #5DADE2;
-    --primary-dark: #217DBB;
-    /* secondary-color can remain same or be adjusted if needed for dark mode */
-    --accent-color: #E67E22; /* Orange accent can work on dark too */
+    --primary-color: #7B6FF0;    /* Brighter Indigo/Purple for dark mode */
+    --primary-light: #A095FF;
+    --primary-dark: #5F4FE3;
+    --secondary-color: #20A0A5;  /* Slightly brighter Teal for dark mode */
+    --accent-color: #E67E22;     /* Orange (kept for now) */
 
-    --background-color: #1B2631; /* Very Dark Blue/Gray */
-    --card-color: #222E3A;       /* Dark Blue/Gray, lighter than background */
-    --text-color: #ECF0F1;       /* Light Gray/Off-White */
-    --light-text: #AABBC3;       /* Lighter Gray */
-    --card-footer-bg: #273442;   /* Darker footer bg */
-    --card-footer-border: #314152;
-    --input-bg: #2C3A47;
-    --input-border: #3E5369;
+    --background-color: #1E1C2F; /* Very dark deep purple */
+    --card-color: #2A2740;       /* Dark purple, lighter than background */
+    --text-color: #EAE8FF;       /* Light lavender/off-white */
+    --light-text: #B8B4E0;       /* Lighter grayish purple */
+    --card-footer-bg: #2F2C45;
+    --card-footer-border: #3E3A5A;
+    --input-bg: #302D4A;
+    --input-border: #4A466D;
 }
 
 /* Aplicar estilos a elementos específicos basados en variables */

@@ -113,6 +113,8 @@
     background-color: var(--primary-color);
     color: white;
     flex: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .filter-button.reset {

@@ -64,7 +64,7 @@ button:active {
 
 .result-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0,0,0,0.1); /* More layered shadow */
 }
 
 .card-header {
@@ -281,7 +281,9 @@ button:active {
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 5px rgba(98, 0, 234, 0.2);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Using a more neutral shadow based on previous button updates */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .download-btn:hover {
