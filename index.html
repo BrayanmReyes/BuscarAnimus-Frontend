@@ -31,14 +31,15 @@
             </div>
         </div>
     </header>
-        
-    <div class="container">
-        <div class="nav-buttons">
-            <a href="anichart.html" class="nav-button">Ver Anime en Emisión</a>
-        </div>
-        <div class="search-area">
-            <form id="search-form" class="search-form">
-                <div class="form-group">
+    
+    <div class="main-content-wrapper"> <!-- Wrapper added -->
+        <div class="container">
+            <div class="nav-buttons">
+                <a href="anichart.html" class="nav-button">Ver Anime en Emisión</a>
+            </div>
+            <div class="search-area">
+                <form id="search-form" class="search-form">
+                    <div class="form-group">
                     <label for="anime-name">Nombre del Anime</label>
                     <input type="text" id="anime-name" placeholder="Ejemplo: Daima, Naruto, Sakamoto..." required>
                 </div>
@@ -143,6 +144,14 @@
             <div id="results-grid" class="results-grid"></div>
         </div>
     </div>
+    </div> <!-- End of main-content-wrapper -->
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Anime Search. All Rights Reserved.</p>
+            <!-- <p>View on <a href="YOUR_REPO_LINK_HERE" target="_blank" rel="noopener noreferrer">GitHub</a></p> -->
+        </div>
+    </footer>
     
     <div id="success-message" class="success-message">
         Enlace copiado al portapapeles

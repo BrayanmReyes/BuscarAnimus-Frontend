@@ -30,3 +30,95 @@
         font-size: 1.1rem;
     }
 }
+
+@media (max-width: 480px) {
+    header {
+        padding: 15px 0; /* Reduced header padding */
+    }
+
+    h1 {
+        font-size: 1.8rem; /* Further reduced h1 font size */
+    }
+
+    .search-area {
+        padding: 20px; /* Reduced padding for search area */
+    }
+    
+    .container {
+        padding: 15px; /* Reduce container padding on very small screens */
+    }
+
+    input, 
+    select,
+    button { /* Apply to general buttons as well if their padding feels too large */
+        font-size: 14px; /* Reduce font size for inputs/selects/buttons */
+        padding: 12px 14px; /* Reduced padding for form elements */
+    }
+    
+    /* Specific button adjustments if general one is too broad */
+    .search-form button { /* Main search button */
+         padding: 12px 20px;
+    }
+
+    label { /* Reduce label font size within forms */
+        font-size: 0.9rem;
+    }
+
+    .filters-header {
+        padding: 10px 15px; /* Reduced padding */
+    }
+
+    .filters-content {
+        padding: 15px; /* Reduced padding */
+    }
+    
+    .filter-select { /* Adjust filter select padding if needed */
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .filter-button { /* Adjust filter button padding */
+        padding: 10px 14px;
+        font-size: 0.8rem;
+    }
+
+    .results-grid {
+        gap: 20px; /* Slightly reduce gap for cards on very small screens */
+    }
+    
+    .card-body,
+    .card-footer { /* Reduce padding inside cards */
+        padding: 15px;
+    }
+    
+    .anime-title {
+        font-size: 1rem; /* Adjust card title font size */
+    }
+    
+    .stat-value {
+        font-size: 1rem;
+    }
+    .stat-label {
+        font-size: 0.75rem;
+    }
+    
+    /* Adjustments for card action buttons if necessary */
+    .download-btn {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+    }
+    .copy-btn {
+        padding: 8px;
+        min-width: 40px;
+        height: 40px;
+    }
+    .stremio-web-btn,
+    .stremio-desktop-btn {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+    }
+    .stremio-web-btn .stremio-icon,
+    .stremio-desktop-btn .stremio-icon {
+        margin-right: 4px;
+    }
+}

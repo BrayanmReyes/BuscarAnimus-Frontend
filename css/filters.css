@@ -12,7 +12,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px;
+    padding: 15px 20px; /* Increased padding */
     border-bottom: 1px solid var(--card-footer-border);
 }
 
@@ -37,7 +37,8 @@
 }
 
 .toggle-filters-btn:hover {
-    background-color: rgba(98, 0, 234, 0.1);
+    background-color: var(--input-bg); /* Uses theme-aware background */
+    /* Text color var(--primary-color) should remain readable */
 }
 
 .filter-icon {
@@ -46,20 +47,21 @@
 }
 
 .filters-content {
-    padding: 15px;
+    padding: 20px; /* Increased padding */
     display: none; /* Oculto por defecto */
-    gap: 10px;
+    /* gap is now set in .filters-content.show */
 }
 
 .filters-content.show {
     display: grid;
     grid-template-columns: 1fr;
+    gap: 15px; /* Increased gap */
 }
 
 .filter-row {
     display: flex;
     gap: 10px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */ /* Removed as gap in grid handles spacing */
 }
 
 .filter-group {
@@ -94,7 +96,7 @@
 .filter-actions {
     display: flex;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 20px; /* Increased margin-top */
 }
 
 .filter-button {

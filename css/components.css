@@ -34,18 +34,20 @@ button {
     transition: var(--transition);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 6px rgba(255, 64, 129, 0.2);
+    box-shadow: 0 4px 6px rgba(230, 126, 34, 0.2); /* Updated shadow for accent color */
 }
 
 button:hover {
-    background-color: #f50057;
+    background-color: var(--accent-color); /* Ensure base color is accent for filter to apply correctly */
+    filter: brightness(90%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(255, 64, 129, 0.3);
+    box-shadow: 0 6px 10px rgba(230, 126, 34, 0.3); /* Updated shadow for accent color */
 }
 
 button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(255, 64, 129, 0.2);
+    box-shadow: 0 2px 4px rgba(230, 126, 34, 0.2); /* Updated shadow for accent color */
+    filter: brightness(85%); /* Slightly more pronounced effect on active */
 }
 
 /* Result Cards */
@@ -324,7 +326,7 @@ button:active {
 .stremio-web-btn,
 .stremio-desktop-btn {
     flex: 1;
-    background-color: #8E44AD;
+    background-color: var(--primary-light); /* Updated background color */
     color: white;
     padding: 10px 12px;
     border-radius: var(--border-radius);
@@ -334,14 +336,14 @@ button:active {
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 5px rgba(142, 68, 173, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Updated box shadow */
 }
 
 .stremio-web-btn:hover,
 .stremio-desktop-btn:hover {
-    background-color: #6C3483;
+    background-color: var(--primary-color); /* Updated hover background color */
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(142, 68, 173, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Updated hover box shadow */
 }
 
 .stremio-icon {

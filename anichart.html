@@ -32,27 +32,36 @@
         </div>
     </header>
     
-    <div class="container">
-        <div class="search-area">
-            <div class="nav-buttons">
-                <a href="index.html" class="nav-button">← Volver al Buscador</a>
+    <div class="main-content-wrapper"> <!-- Wrapper added -->
+        <div class="container">
+            <div class="search-area"> <!-- This div seems to only contain nav-buttons, might be re-evaluated later -->
+                <div class="nav-buttons">
+                    <a href="index.html" class="nav-button">← Volver al Buscador</a>
+                </div>
+            </div>
+            
+            <div id="error-message" class="error-message"></div>
+            
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Cargando calendario de anime...</p>
+            </div>
+            
+            <div class="anichart-container">
+                <!-- Aquí incrustamos el iframe de anichart -->
+                <iframe src="https://anichart.net/airing" frameborder="0" scrolling="yes" title="AniChart Airing Schedule">
+                    Tu navegador no soporta iframes.
+                </iframe>
             </div>
         </div>
-        
-        <div id="error-message" class="error-message"></div>
-        
-        <div id="loading" class="loading">
-            <div class="spinner"></div>
-            <p>Cargando calendario de anime...</p>
+    </div> <!-- End of main-content-wrapper -->
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Anime Search. All Rights Reserved.</p>
+            <!-- <p>View on <a href="YOUR_REPO_LINK_HERE" target="_blank" rel="noopener noreferrer">GitHub</a></p> -->
         </div>
-        
-        <div class="anichart-container">
-            <!-- Aquí incrustamos el iframe de anichart -->
-            <iframe src="https://anichart.net/airing" frameborder="0" scrolling="yes" title="AniChart Airing Schedule">
-                Tu navegador no soporta iframes.
-            </iframe>
-        </div>
-    </div>
+    </footer>
     
     <!-- Archivos JS separados -->
     <script>

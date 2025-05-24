@@ -1,30 +1,30 @@
 /*base.css - Estilos base, variables, resets*/
 /*base.css - Modificaciones para un mejor contraste entre temas*/
 :root {
-    --primary-color: #6200ea;
-    --primary-light: #9d46ff;
-    --primary-dark: #0a00b6;
-    --secondary-color: #00b0ff;
-    --secondary-light: #69e2ff;
-    --secondary-dark: #0081cb;
-    --accent-color: #ff4081;
-    
-    /* Tema claro (valores predeterminados) */
-    --background-color: #f7f9fc;
-    --card-color: #ffffff;
-    --text-color: #37474f;
-    --light-text: #78909c;
-    --card-footer-bg: #f9fafc;
-    --card-footer-border: #eee;
-    --input-bg: #f9fafc;
-    --input-border: #e0e0e0;
-    
-    --success-color: #00c853;
-    --error-color: #d50000;
-    --warning-color: #ffd600;
-    --border-radius: 8px;
-    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    --transition: all 0.3s ease;
+    --primary-color: #2E5C8A; /* Moderate Blue */
+    --primary-light: #5D8FBC; /* Lighter Blue */
+    --primary-dark: #1E3C5A;  /* Darker Blue */
+    --secondary-color: #00A0B0; /* Teal - kept for elements that might use it, can be adjusted later */
+    --secondary-light: #69D2E7;
+    --secondary-dark: #007A87;
+    --accent-color: #E67E22;    /* Complementary Orange */
+
+    /* Theme specific */
+    --background-color: #F4F7F9; /* Very Light Cool Gray */
+    --card-color: #FFFFFF;       /* White */
+    --text-color: #34495E;       /* Dark Desaturated Blue/Gray */
+    --light-text: #7F8C8D;       /* Medium Gray */
+    --card-footer-bg: #FDFEFE;   /* Slightly off-white for footer */
+    --card-footer-border: #EAECEE;
+    --input-bg: #FFFFFF;
+    --input-border: #D0D9E0;
+
+    --success-color: #2ECC71; /* Green */
+    --error-color: #E74C3C;   /* Red */
+    --warning-color: #F39C12; /* Yellow/Orange */
+    --border-radius: 8px; /* Keep existing values or adjust if needed */
+    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07); /* Keep or adjust */
+    --transition: all 0.3s ease; /* Keep */
 }
 
 * {
@@ -38,11 +38,17 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     margin: 0;
-    padding: 0;
+    padding: 0; /* Ensure padding is 0 if not already */
     line-height: 1.6;
-    min-height: 100vh;
+    display: flex; /* Added */
+    flex-direction: column; /* Added */
+    min-height: 100vh; /* Added */
     /* La transición suave para el cambio de tema */
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s; /* existing */
+}
+
+.main-content-wrapper {
+    flex-grow: 1;
 }
 
 /* Removemos la media query para preferencia de sistema y dejamos solo la clase .dark-mode */
@@ -50,14 +56,20 @@ body {
 
 /* Tema oscuro controlado completamente por la clase .dark-mode */
 body.dark-mode {
-    --background-color: #121212;
-    --card-color: #1e1e1e;
-    --text-color: #e0e0e0;
-    --light-text: #9e9e9e;
-    --card-footer-bg: #252525;
-    --card-footer-border: #333;
-    --input-bg: #2d2d2d;
-    --input-border: #444;
+    --primary-color: #3498DB; /* A slightly brighter blue for dark mode */
+    --primary-light: #5DADE2;
+    --primary-dark: #217DBB;
+    /* secondary-color can remain same or be adjusted if needed for dark mode */
+    --accent-color: #E67E22; /* Orange accent can work on dark too */
+
+    --background-color: #1B2631; /* Very Dark Blue/Gray */
+    --card-color: #222E3A;       /* Dark Blue/Gray, lighter than background */
+    --text-color: #ECF0F1;       /* Light Gray/Off-White */
+    --light-text: #AABBC3;       /* Lighter Gray */
+    --card-footer-bg: #273442;   /* Darker footer bg */
+    --card-footer-border: #314152;
+    --input-bg: #2C3A47;
+    --input-border: #3E5369;
 }
 
 /* Aplicar estilos a elementos específicos basados en variables */

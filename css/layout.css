@@ -6,28 +6,18 @@
 }
 
 header {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    padding: 15px 0;
+    background-color: var(--primary-dark);
+    color: #ECF0F1; /* Light gray for good contrast on dark blue */
+    padding: 25px 0; /* Increased padding */
     text-align: center;
-    border-radius: 0 0 20px 20px;
-    box-shadow: var(--box-shadow);
+    border-radius: 0 0 20px 20px; /* Kept as per instructions */
+    box-shadow: var(--box-shadow); /* Kept as per instructions */
     margin-bottom: 20px;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* Kept, useful if any child elements were to overflow */
 }
 
-header::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-    filter: blur(10px);
-    z-index: 0;
-}
+/* header::before pseudo-element removed */
 
 header .container {
     display: flex;
@@ -53,13 +43,13 @@ h1 {
     font-weight: 400;
     margin-top: 5px;
     font-size: 0.95rem;
-    opacity: 0.9;
+    opacity: 0.8; /* Slightly adjusted opacity */
 }
 
 .search-area {
     background-color: var(--card-color);
     border-radius: var(--border-radius);
-    padding: 25px;
+    padding: 30px; /* Increased padding */
     box-shadow: var(--box-shadow);
     margin-bottom: 40px;
     transition: var(--transition);
@@ -68,7 +58,7 @@ h1 {
 .results-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 25px;
+    gap: 30px; /* Increased gap */
 }
 
 .results-count {
@@ -81,5 +71,41 @@ h1 {
 
 .results-area {
     display: none;
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--card-color);
+    color: var(--light-text);
+    padding: 25px 0; /* Increased padding slightly */
+    text-align: center;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--card-footer-border);
+    margin-top: 40px; /* Space above the footer */
+}
+
+footer p {
+    margin-bottom: 5px;
+}
+
+footer p:last-child {
+    margin-bottom: 0;
+}
+
+footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500; /* Added for better visibility */
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Dark theme adjustments for footer are implicitly handled by variables like --card-color, --light-text, etc.
+   However, we can ensure link colors are optimal for dark mode if needed.
+*/
+body.dark-mode footer a {
+    color: var(--primary-light); /* Use a lighter blue for links in dark mode */
 }
 
