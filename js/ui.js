@@ -42,7 +42,7 @@ const UI = (function() {
                 noResultsMsg.textContent = 'No hay resultados que coincidan con los filtros seleccionados';
                 resultsGrid.appendChild(noResultsMsg);
             }
-            
+
             // Initialize event listeners for the newly created cards
             CardBuilder.init(resultsGrid);
         },

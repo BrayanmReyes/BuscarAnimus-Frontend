@@ -285,7 +285,7 @@ const CardBuilder = (function() {
                     UI.showError('Versión de Stremio no válida.');
                     return;
             }
-            
+
             // Abrir en nueva pestaña
             window.open(url, '_blank');
         },

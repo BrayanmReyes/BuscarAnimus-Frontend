@@ -134,6 +134,10 @@
     transform: translateY(-1px);
 }
 
+.filter-button:active {
+    animation: button-pulse 0.2s ease-out;
+}
+
 /**/
 .filter-group .chip-container {
     display: flex;

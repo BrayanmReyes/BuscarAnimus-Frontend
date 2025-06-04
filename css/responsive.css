@@ -43,18 +43,18 @@
     .search-area {
         padding: 20px; /* Reduced padding for search area */
     }
-    
+
     .container {
         padding: 15px; /* Reduce container padding on very small screens */
     }
 
-    input, 
+    input,
     select,
     button { /* Apply to general buttons as well if their padding feels too large */
         font-size: 14px; /* Reduce font size for inputs/selects/buttons */
         padding: 12px 14px; /* Reduced padding for form elements */
     }
-    
+
     /* Specific button adjustments if general one is too broad */
     .search-form button { /* Main search button */
          padding: 12px 20px;
@@ -71,12 +71,12 @@
     .filters-content {
         padding: 15px; /* Reduced padding */
     }
-    
+
     .filter-select { /* Adjust filter select padding if needed */
         padding: 10px 12px;
         font-size: 0.85rem;
     }
-    
+
     .filter-button { /* Adjust filter button padding */
         padding: 10px 14px;
         font-size: 0.8rem;
@@ -85,23 +85,23 @@
     .results-grid {
         gap: 20px; /* Slightly reduce gap for cards on very small screens */
     }
-    
+
     .card-body,
     .card-footer { /* Reduce padding inside cards */
         padding: 15px;
     }
-    
+
     .anime-title {
         font-size: 1rem; /* Adjust card title font size */
     }
-    
+
     .stat-value {
         font-size: 1rem;
     }
     .stat-label {
         font-size: 0.75rem;
     }
-    
+
     /* Adjustments for card action buttons if necessary */
     .download-btn {
         padding: 10px 14px;
@@ -121,5 +121,16 @@
     .stremio-web-btn .stremio-icon,
     .stremio-desktop-btn .stremio-icon {
         margin-right: 4px;
+    }
+
+    /* Softer focus for inputs on very small screens */
+    input:focus,
+    select:focus {
+        box-shadow: 0 0 0 2px rgba(78, 0, 194, 0.2); /* Corresponds to light mode --primary-color */
+    }
+
+    body.dark-mode input:focus,
+    body.dark-mode select:focus {
+        box-shadow: 0 0 0 2px rgba(138, 66, 255, 0.2); /* Corresponds to dark mode --primary-color */
     }
 }

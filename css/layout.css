@@ -6,8 +6,8 @@
 }
 
 header {
-    background-color: var(--primary-dark);
-    color: #ECF0F1; /* Light gray for good contrast on dark blue */
+    background-image: var(--primary-gradient); /* Changed to use gradient */
+    color: #ECF0F1; /* Light gray for good contrast, should work with new gradient */
     padding: 25px 0; /* Increased padding */
     text-align: center;
     border-radius: 0 0 20px 20px; /* Kept as per instructions */
@@ -15,6 +15,8 @@ header {
     margin-bottom: 20px;
     position: relative;
     overflow: hidden; /* Kept, useful if any child elements were to overflow */
+    background-size: 250% 250%;
+    animation: gradient-flow 18s ease infinite;
 }
 
 /* header::before pseudo-element removed */
@@ -109,3 +111,8 @@ body.dark-mode footer a {
     color: var(--primary-light); /* Use a lighter blue for links in dark mode */
 }
 
+@keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}

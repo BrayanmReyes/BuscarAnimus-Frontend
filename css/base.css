@@ -1,29 +1,33 @@
 /*base.css - Estilos base, variables, resets*/
 /*base.css - Modificaciones para un mejor contraste entre temas*/
 :root {
-    --primary-color: #5A4FCF;    /* Indigo */
-    --primary-light: #8175FF;    /* Lighter Indigo/Purple */
-    --primary-dark: #4035B8;     /* Darker Indigo */
-    --secondary-color: #14999E;  /* Deep Teal/Cyan */
-    --secondary-light: #22C9CF;
-    --secondary-dark: #0B696D;
-    --accent-color: #E67E22;     /* Orange (kept for now) */
+    --primary-color: #4E00C2;    /* Vibrant Purple */
+    --primary-light: #7733FF;
+    --primary-dark: #3A0099;
+    --primary-gradient: linear-gradient(135deg, #0052D4, #4E00C2, #65009E); /* Blue -> Purple -> Violet */
+
+    /* Using accent for primary call-to-action buttons like main search */
+    --accent-color: #E80074;     /* Magenta/Pink */
+    /* Secondary color can be used for other accents or less critical buttons */
+    --secondary-color: #00A0B0; /* Teal - kept from a previous iteration, can be re-evaluated if it clashes */
+    --secondary-light: #69D2E7;
+    --secondary-dark: #007A87;
 
     /* Theme specific */
-    --background-color: #F8F7FF; /* Very light lavender/off-white */
+    --background-color: #F5F6FA; /* Light grayish blue */
     --card-color: #FFFFFF;       /* White */
-    --text-color: #302E4D;       /* Dark grayish purple */
-    --light-text: #7A7799;       /* Medium grayish purple */
-    --card-footer-bg: #FEFEFF;
-    --card-footer-border: #EDEDF5;
+    --text-color: #2C2A4A;       /* Dark desaturated indigo */
+    --light-text: #6E6B99;       /* Medium gray-indigo */
+    --card-footer-bg: #FCFCFD;
+    --card-footer-border: #EFF0F5;
     --input-bg: #FFFFFF;
-    --input-border: #D8D5F0;
+    --input-border: #D8DAE0;
 
-    --success-color: #2ECC71; /* Green (can remain standard) */
-    --error-color: #E74C3C;   /* Red (can remain standard) */
-    --warning-color: #F39C12; /* Yellow/Orange (can remain standard) */
-    --border-radius: 8px; 
-    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    --success-color: #2ECC71;
+    --error-color: #E74C3C;
+    --warning-color: #F39C12;
+    --border-radius: 8px;
+    --box-shadow: 0 5px 20px rgba(44, 42, 74, 0.1); /* Shadow based on dark text color, more presence */
     --transition: all 0.3s ease;
 }
 
@@ -56,20 +60,23 @@ body {
 
 /* Tema oscuro controlado completamente por la clase .dark-mode */
 body.dark-mode {
-    --primary-color: #7B6FF0;    /* Brighter Indigo/Purple for dark mode */
-    --primary-light: #A095FF;
-    --primary-dark: #5F4FE3;
-    --secondary-color: #20A0A5;  /* Slightly brighter Teal for dark mode */
-    --accent-color: #E67E22;     /* Orange (kept for now) */
+    --primary-color: #8A42FF;    /* Brighter Purple for dark mode interaction */
+    --primary-light: #A977FF;
+    --primary-dark: #671AED;
+    --primary-gradient: linear-gradient(135deg, #1A0066, #3D0099, #5C00CC); /* Darker Blue -> Purple gradient */
 
-    --background-color: #1E1C2F; /* Very dark deep purple */
-    --card-color: #2A2740;       /* Dark purple, lighter than background */
-    --text-color: #EAE8FF;       /* Light lavender/off-white */
-    --light-text: #B8B4E0;       /* Lighter grayish purple */
-    --card-footer-bg: #2F2C45;
-    --card-footer-border: #3E3A5A;
-    --input-bg: #302D4A;
-    --input-border: #4A466D;
+    --accent-color: #F0288C;     /* Slightly brighter Magenta/Pink */
+    --secondary-color: #20A0A5;  /* Slightly brighter Teal for dark mode */
+
+    --background-color: #16142B; /* Very dark desaturated indigo/almost black */
+    --card-color: #211E3B;       /* Dark indigo, slightly lighter than bg */
+    --text-color: #E0DFFF;       /* Light lavender */
+    --light-text: #A09CCC;       /* Medium-light lavender */
+    --card-footer-bg: #252240;
+    --card-footer-border: #332F55;
+    --input-bg: #282545;
+    --input-border: #3A365C;
+    --box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25); /* More opaque black shadow for subtle layering on dark bg */
 }
 
 /* Aplicar estilos a elementos específicos basados en variables */
@@ -87,8 +94,13 @@ input, select {
 input:focus, select:focus {
     border-color: var(--primary-color);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(98, 0, 234, 0.1);
+    box-shadow: 0 0 0 3px rgba(78, 0, 194, 0.25); /* Updated for light mode primary color */
     background-color: var(--card-color);
+}
+
+body.dark-mode input:focus,
+body.dark-mode select:focus {
+    box-shadow: 0 0 0 3px rgba(138, 66, 255, 0.25); /* Updated for dark mode primary color */
 }
 
 .search-area {
@@ -177,4 +189,11 @@ input:checked + .theme-toggle-slider:before {
 
 body.dark-mode .dark-icon {
     color: #c2c2c2;
+}
+
+/* Keyframes for button pulse animation */
+@keyframes button-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.96); }
+    100% { transform: scale(1); }
 }

@@ -6,6 +6,8 @@
     display: none;
 }
 
+/* Old spinner styles - commented out */
+/*
 .spinner {
     border: 4px solid rgba(0, 0, 0, 0.1);
     border-left-color: var(--primary-color);
@@ -18,6 +20,50 @@
 
 @keyframes spin {
     to { transform: rotate(360deg); }
+}
+*/
+
+/* New Bouncing Dots Loader Styles */
+.bouncing-dots-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px; /* Can be adjusted if it looks too wide/narrow */
+    height: 50px; /* Vertical space for the animation */
+    margin: 0 auto 20px; /* Consistent with old spinner margin */
+}
+
+.bouncing-dots-loader div {
+    width: 12px;
+    height: 12px;
+    margin: 0 5px; /* Spacing between dots */
+    background-color: var(--primary-color); /* Uses theme's primary color */
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.bouncing-dots-loader div:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.bouncing-dots-loader div:nth-child(2) {
+    animation-delay: -0.16s;
+}
+/* nth-child(3) will have 0s delay by default */
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+    }
+    40% {
+        transform: scale(1.0);
+    }
+}
+
+.loading p {
+    color: var(--light-text); /* Or another suitable text variable */
+    font-weight: 500; /* Or desired weight */
+    margin-top: 0; /* If margin from loader is sufficient */
 }
 
 /* Messages */

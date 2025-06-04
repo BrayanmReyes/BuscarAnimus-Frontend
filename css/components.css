@@ -34,20 +34,21 @@ button {
     transition: var(--transition);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 6px rgba(230, 126, 34, 0.2); /* Updated shadow for accent color */
+    box-shadow: 0 4px 6px rgba(232, 0, 116, 0.2); /* Shadow for new Magenta/Pink accent */
 }
 
 button:hover {
-    background-color: var(--accent-color); /* Ensure base color is accent for filter to apply correctly */
+    background-color: var(--accent-color);
     filter: brightness(90%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(230, 126, 34, 0.3); /* Updated shadow for accent color */
+    box-shadow: 0 6px 10px rgba(232, 0, 116, 0.3); /* Hover shadow for new Magenta/Pink accent */
 }
 
 button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(230, 126, 34, 0.2); /* Updated shadow for accent color */
-    filter: brightness(85%); /* Slightly more pronounced effect on active */
+    /* transform: translateY(0); */ /* Removed as animation handles transform */
+    box-shadow: 0 2px 4px rgba(232, 0, 116, 0.2); /* Active shadow for new Magenta/Pink accent */
+    filter: brightness(85%);
+    animation: button-pulse 0.2s ease-out;
 }
 
 /* Result Cards */
@@ -292,6 +293,10 @@ button:active {
     box-shadow: 0 4px 8px rgba(98, 0, 234, 0.3);
 }
 
+.download-btn:active {
+    animation: button-pulse 0.2s ease-out;
+}
+
 .copy-btn {
     background-color: var(--secondary-color);
     padding: 10px;
@@ -309,6 +314,10 @@ button:active {
     background-color: var(--secondary-dark);
     box-shadow: 0 4px 8px rgba(0, 176, 255, 0.3);
     transform: translateY(-2px);
+}
+
+.copy-btn:active {
+    animation: button-pulse 0.2s ease-out;
 }
 
 .copy-icon {
@@ -346,6 +355,11 @@ button:active {
     background-color: var(--primary-color); /* Updated hover background color */
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Updated hover box shadow */
+}
+
+.stremio-web-btn:active,
+.stremio-desktop-btn:active {
+    animation: button-pulse 0.2s ease-out;
 }
 
 .stremio-icon {
