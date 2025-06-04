@@ -80,6 +80,39 @@ const UI = (function() {
             // Ocultar filtros al hacer una nueva búsqueda
             filtersContent.classList.remove('show');
             document.getElementById('toggle-filters').querySelector('.toggle-text').textContent = 'Mostrar filtros';
+        },
+
+        initScrollToTopButton: function() { // Added function directly to returned object
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            if (!scrollToTopBtn) {
+                console.warn('Scroll to top button not found.'); // Optional warning
+                return;
+            }
+
+            // Throttle scroll event listener for performance
+            let isThrottled = false;
+            const throttleDuration = 100; // ms
+
+            window.addEventListener('scroll', () => {
+                if (isThrottled) return;
+                isThrottled = true;
+                setTimeout(() => {
+                    isThrottled = false;
+                }, throttleDuration);
+
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            });
+
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
         }
     };
 })();

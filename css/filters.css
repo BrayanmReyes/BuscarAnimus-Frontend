@@ -47,15 +47,34 @@
 }
 
 .filters-content {
-    padding: 20px; /* Increased padding */
-    display: none; /* Oculto por defecto */
-    /* gap is now set in .filters-content.show */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+
+    padding-top: 0;
+    padding-bottom: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+
+    transition: max-height 0.35s ease-in-out,
+                padding-top 0.35s ease-in-out,
+                padding-bottom 0.35s ease-in-out,
+                opacity 0.3s ease-in-out 0.05s,
+                visibility 0s linear 0.35s;
 }
 
 .filters-content.show {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px; /* Increased gap */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    max-height: 1000px; /* A value larger than the content's expected height */
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s, 0s, 0s, 0s, 0s; /* Ensure visibility transition is immediate when showing */
 }
 
 .filter-row {
@@ -171,9 +190,9 @@
 
 /* Responsive para filtros */
 @media (max-width: 768px) {
-    .filters-content {
-        grid-template-columns: 1fr;
-    }
+    /* .filters-content { */ /* This rule is no longer needed as grid-template-columns: 1fr is default */
+        /* grid-template-columns: 1fr; */
+    /* } */
     
     .filter-actions {
         flex-direction: column;

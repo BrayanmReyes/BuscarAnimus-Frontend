@@ -31,6 +31,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Realizar búsqueda
         searchAnime(animeName, timezone, serverUrl);
     });
+
+    // Initialize Scroll to Top button
+    if (UI && typeof UI.initScrollToTopButton === 'function') {
+        UI.initScrollToTopButton();
+    }
     
     // Función para cargar preferencias almacenadas
     function loadStoredPreferences() {

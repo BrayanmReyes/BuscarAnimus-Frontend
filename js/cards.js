@@ -210,13 +210,30 @@ const CardBuilder = (function() {
             copyBtn.className = 'copy-btn';
             copyBtn.setAttribute('data-magnet', item.enlaceMagnet);
             copyBtn.title = 'Copiar enlace magnet';
+
+            // Original Copy Icon
             const copyIconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            copyIconSvg.setAttribute('class', 'copy-icon');
+            copyIconSvg.setAttribute('class', 'copy-icon'); // Will be styled by CSS
             copyIconSvg.setAttribute('viewBox', '0 0 24 24');
             const copyIconPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             copyIconPath.setAttribute('d', 'M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z');
             copyIconSvg.appendChild(copyIconPath);
             copyBtn.appendChild(copyIconSvg);
+
+            // New Checkmark Icon (hidden by default via CSS)
+            const checkIconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            checkIconSvg.setAttribute('class', 'check-icon'); // Will be styled by CSS (display:none initially)
+            checkIconSvg.setAttribute('viewBox', '0 0 24 24');
+            // Path for checkmark icon
+            const checkIconPath1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            checkIconPath1.setAttribute('d', 'M0 0h24v24H0z');
+            checkIconPath1.setAttribute('fill', 'none');
+            const checkIconPath2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            checkIconPath2.setAttribute('d', 'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z');
+            checkIconSvg.appendChild(checkIconPath1);
+            checkIconSvg.appendChild(checkIconPath2);
+            copyBtn.appendChild(checkIconSvg);
+
             downloadActions.appendChild(copyBtn);
             cardFooter.appendChild(downloadActions);
 
@@ -306,8 +323,24 @@ const CardBuilder = (function() {
                         window.location.href = downloadLink;
                     }
                 } else if (target.matches('.copy-btn, .copy-btn *')) {
-                    if (magnetLink) {
-                        Utils.copyToClipboard(magnetLink);
+                    const copyButtonElement = target.closest('.copy-btn');
+                    if (magnetLink && copyButtonElement) {
+                        const originalTitle = copyButtonElement.title; // Save original title
+                        Utils.copyToClipboard(magnetLink)
+                            .then(success => {
+                                if (success) {
+                                    copyButtonElement.classList.add('copied');
+                                    copyButtonElement.title = 'Copied!'; // Optional: change title
+                                    setTimeout(() => {
+                                        copyButtonElement.classList.remove('copied');
+                                        copyButtonElement.title = originalTitle; // Restore original title
+                                    }, 2000);
+                                }
+                            })
+                            .catch(err => {
+                                // Error already logged by copyToClipboard, could add specific UI feedback here if needed
+                                console.error('Copy operation failed for this button:', err);
+                            });
                     }
                 } else if (target.matches('.stremio-web-btn, .stremio-web-btn *')) {
                     if (magnetLink) {

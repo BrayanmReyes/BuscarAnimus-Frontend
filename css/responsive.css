@@ -133,4 +133,16 @@
     body.dark-mode select:focus {
         box-shadow: 0 0 0 2px rgba(138, 66, 255, 0.2); /* Corresponds to dark mode --primary-color */
     }
+
+    /* Responsive adjustments for Scroll to Top Button */
+    #scrollToTopBtn {
+        padding: 10px;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    #scrollToTopBtn svg {
+        width: 18px; /* Slightly smaller icon for smaller button */
+        height: 18px;
+    }
 }

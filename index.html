@@ -77,9 +77,19 @@
             <p>Buscando resultados...</p>
         </div>
         
-        <div id="empty-state" class="empty-state">
-            <h3>No se encontraron resultados</h3>
-            <p>Intenta con otro nombre o verifica que el servidor de búsqueda esté funcionando correctamente.</p>
+        <div id="empty-state" class="empty-state"> <!-- JS will set display: block or flex -->
+            <div class="empty-state-content"> <!-- This div handles the flex layout -->
+                <div class="empty-state-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="64px" height="64px">
+                        <path d="M0 0h24v24H0V0z" fill="none"/>
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        <path d="M11.5 9.5c0 .55-.45 1-1 1s-1-.45-1-1 .45-1 1-1 1 .45 1 1zm-2 0c0-.55.45-1 1-1s1 .45 1 1-.45 1-1 1-1-.45-1-1zm2-3c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45-1-1-.45-1-1-1z" opacity=".3"/>
+                    </svg>
+                </div>
+                <h3>Oops! No Anime Found</h3>
+                <p>It seems we couldn't find any results for your search.</p>
+                <p>Try checking your spelling, using different keywords, or ensure your server URL is correct.</p>
+            </div>
         </div>
         
         <div id="results-area" class="results-area">
@@ -149,6 +159,13 @@
         </div>
     </div>
     </div> <!-- End of main-content-wrapper -->
+
+    <button id="scrollToTopBtn" title="Go to top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z"/>
+        </svg>
+    </button>
 
     <footer>
         <div class="container">

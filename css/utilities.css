@@ -103,23 +103,49 @@
 
 /* Empty States */
 .empty-state {
-    text-align: center;
+    /* display: none; /* KEEP THIS - JS controls visibility */
+    text-align: center; /* Fallback if display:flex isn't set by JS yet */
     padding: 60px 20px;
     color: var(--light-text);
-    display: none;
     background-color: var(--card-color);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
+    display: none; /* Explicitly keeping this, JS will change to block/flex */
+}
+
+/* New inner wrapper for flex layout */
+.empty-state-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-state-icon {
+    margin-bottom: 25px;
+    color: var(--light-text); /* Default icon color */
+    /* Optional: if you want the icon to use primary color: */
+    /* color: var(--primary-light); */
+}
+
+.empty-state-icon svg {
+    width: 64px;
+    height: 64px;
+    fill: currentColor;
 }
 
 .empty-state h3 {
-    font-size: 1.5rem;
+    font-size: 1.6rem; /* Existing or slightly larger */
     margin-bottom: 15px;
-    color: var(--text-color);
+    color: var(--text-color); /* Ensure it uses the main text color variable */
 }
 
 .empty-state p {
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto;
+    font-size: 1rem; /* Adjusted from 1.1rem in previous consideration */
+    max-width: 550px;
+    margin: 0 auto 10px auto; /* Consistent margin for paragraphs */
+}
+
+.empty-state p:last-of-type {
+    margin-bottom: 0;
 }
