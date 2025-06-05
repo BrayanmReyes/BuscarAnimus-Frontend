@@ -117,3 +117,31 @@ body.dark-mode footer a {
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+
+/* General Page Title Styling */
+.page-title {
+    font-size: 1.8rem; /* Slightly smaller than main h1 */
+    font-weight: 700;
+    color: var(--text-color);
+    text-align: center;
+    margin-top: 20px; /* Space after nav buttons if any */
+    margin-bottom: 30px; /* Space before content grid */
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-light); /* Accent border */
+    display: block; /* Changed to block for margin auto centering */
+    width: fit-content; /* Make block only as wide as its content */
+    margin-left: auto; /* Center the block */
+    margin-right: auto; /* Center the block */
+}
+
+/* Centering for .page-title if it's a block element and text-align isn't enough */
+/* Or ensure its parent div is centered if using display:inline-block */
+/* The h2 in watchlist.html has inline style text-align:center, which is not ideal.
+   Removing that and ensuring its container centers it or it centers itself if block.
+   For now, added text-align:center to the class directly and margin:auto for block centering.
+   The inline-block with parent centering is often better.
+   The H2 in watchlist.html has text-align:center; this rule will make it block.
+   The instructions for watchlist.html already included text-align:center and margins for the h2.
+   I will use the provided style: text-align: center; margin-bottom: 30px; margin-top: 20px;
+   The .page-title class will add to this.
+*/

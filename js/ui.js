@@ -128,30 +128,26 @@ const UI = (function() {
                 }
             }
 
-            // Attach to "Ver Anime en Emisión" button on index.html
-            const anichartLink = document.querySelector('.nav-buttons a[href="anichart.html"]');
-            if (anichartLink) {
-                anichartLink.addEventListener('click', function() {
-                    showPageTransitionLoader();
-                });
-            }
+            // More general approach for all nav-buttons
+            const navButtons = document.querySelectorAll('.nav-buttons a.nav-button');
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html'; // Get current page filename
 
-            // Attach to "Volver al Buscador" button on anichart.html
-            // This selector targets any nav-button link to index.html.
-            // It's made more specific by checking if we are likely on anichart.html.
-            const backToSearchLink = document.querySelector('.nav-buttons a[href="index.html"]');
-            if (backToSearchLink && window.location.pathname.includes('anichart.html')) {
-                backToSearchLink.addEventListener('click', function() {
-                    showPageTransitionLoader();
-                });
-            }
-            // Fallback for cases where pathname might not be perfectly 'anichart.html' (e.g. hosted on subpath)
-            // but the anichart-container is present.
-            else if (backToSearchLink && document.querySelector('.anichart-container') && !anichartLink) {
-                backToSearchLink.addEventListener('click', function() {
-                    showPageTransitionLoader();
-                });
-            }
+            navButtons.forEach(link => {
+                const linkPage = link.getAttribute('href').split('/').pop() || 'index.html';
+
+                // Only add listener if the link is not for the current page
+                if (linkPage !== currentPage) {
+                    link.addEventListener('click', function(event) {
+                        // Check if it's a genuine navigation and not just a hash link or JS prevented action
+                        if (link.getAttribute('href').startsWith('#')) return;
+                        if (event.defaultPrevented) return; // if other JS called preventDefault
+
+                        showPageTransitionLoader();
+                        // Note: The loader ideally hides on 'pageshow' or 'bfcache' events,
+                        // or if navigation fails. For now, it shows on click.
+                    });
+                }
+            });
         }
     };
 })();

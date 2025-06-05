@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API de Nyaa para Anime</title>
+    <title>Anime Search</title>
     <link rel="icon"  type="image/gif" href="https://i.pinimg.com/originals/ba/f9/ab/baf9ab65f11b280b184fbab633024be3.gif">
     <!-- Archivos CSS separados -->
     <link rel="stylesheet" href="css/base.css">
@@ -18,8 +18,8 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <h1>Buscador de Anime</h1>
-                <p class="subtitle">Búsqueda de capítulos de anime</p>
+                <h1>Anime Search</h1>
+                <p class="subtitle">Find and track your favorite anime episodes</p>
             </div>
             <div class="theme-toggle-wrapper">
                 <span class="theme-icon light-icon">☀️</span>
@@ -35,7 +35,10 @@
     <div class="main-content-wrapper"> <!-- Wrapper added -->
         <div class="container">
             <div class="nav-buttons">
-                <a href="anichart.html" class="nav-button">Ver Anime en Emisión</a>
+                <a href="index.html" class="nav-button">Search</a>
+                <a href="anichart.html" class="nav-button">Airing</a>
+                <a href="watchlist.html" class="nav-button">Watchlist</a>
+                <a href="trending.html" class="nav-button">Trending</a>
             </div>
             <div class="search-area">
                 <form id="search-form" class="search-form">
@@ -187,9 +190,10 @@
     <!-- Archivos JS separados -->
     <script src="js/theme.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/watchlist_store.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/cards.js"></script>
-    <script src="js/utils.js"></script>
     <script src="js/filters.js"></script>
 </body>
 </html>

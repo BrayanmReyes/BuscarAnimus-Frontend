@@ -233,8 +233,58 @@ const CardBuilder = (function() {
             checkIconSvg.appendChild(checkIconPath1);
             checkIconSvg.appendChild(checkIconPath2);
             copyBtn.appendChild(checkIconSvg);
-
             downloadActions.appendChild(copyBtn);
+
+            // Watchlist Button
+            const watchlistBtn = document.createElement('button');
+            watchlistBtn.className = 'watchlist-btn';
+            watchlistBtn.setAttribute('data-id', item.enlaceMagnet); // Unique ID for the item
+            watchlistBtn.setAttribute('data-title', titleText); // Use cleaned title
+            watchlistBtn.setAttribute('data-size', item.tamano || '');
+            watchlistBtn.setAttribute('data-seeders', item.seeders || 0);
+            watchlistBtn.setAttribute('data-leechers', item.leechers || 0);
+            watchlistBtn.setAttribute('data-downloads', item.downloads || 0);
+            if (submitter) {
+                watchlistBtn.setAttribute('data-submitter', submitter);
+            }
+            if (episodeNumber !== null) {
+                watchlistBtn.setAttribute('data-episode', episodeNumber);
+            }
+
+            // Outline Heart Icon
+            const outlineHeartSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            outlineHeartSvg.setAttribute('class', 'watchlist-icon-outline');
+            outlineHeartSvg.setAttribute('viewBox', '0 0 24 24');
+            const outlinePath1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            outlinePath1.setAttribute('d', 'M0 0h24v24H0V0z');
+            outlinePath1.setAttribute('fill', 'none');
+            const outlinePath2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            outlinePath2.setAttribute('d', 'M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.05.05-.05-.05C7.32 14.49 4 11.71 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 3.21-3.32 5.99-7.95 10.05z');
+            outlineHeartSvg.appendChild(outlinePath1);
+            outlineHeartSvg.appendChild(outlinePath2);
+            watchlistBtn.appendChild(outlineHeartSvg);
+
+            // Filled Heart Icon
+            const filledHeartSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            filledHeartSvg.setAttribute('class', 'watchlist-icon-filled');
+            filledHeartSvg.setAttribute('viewBox', '0 0 24 24');
+            const filledPath1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            filledPath1.setAttribute('d', 'M0 0h24v24H0V0z');
+            filledPath1.setAttribute('fill', 'none');
+            const filledPath2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            filledPath2.setAttribute('d', 'M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
+            filledHeartSvg.appendChild(filledPath1);
+            filledHeartSvg.appendChild(filledPath2);
+            watchlistBtn.appendChild(filledHeartSvg);
+
+            // Set initial state of the watchlist button
+            if (WatchlistStore && typeof WatchlistStore.isInWatchlist === 'function' && WatchlistStore.isInWatchlist(item.enlaceMagnet)) {
+                watchlistBtn.classList.add('in-watchlist');
+                watchlistBtn.title = 'Remove from Watchlist';
+            } else {
+                watchlistBtn.title = 'Add to Watchlist';
+            }
+            downloadActions.appendChild(watchlistBtn);
             cardFooter.appendChild(downloadActions);
 
             // Stremio Actions
@@ -349,6 +399,37 @@ const CardBuilder = (function() {
                 } else if (target.matches('.stremio-desktop-btn, .stremio-desktop-btn *')) {
                     if (magnetLink) {
                         this._openInStremio(magnetLink, 'desktop');
+                    }
+                } else if (target.matches('.watchlist-btn, .watchlist-btn *')) {
+                    const button = target.closest('.watchlist-btn');
+                    if (button && button.dataset.id) {
+                        const itemObject = {
+                            id: button.dataset.id, // magnet link
+                            nombre: button.dataset.title, // Changed from 'title' to 'nombre' to match item structure
+                            enlaceMagnet: button.dataset.id,
+                            fecha: { original: new Date().toISOString() }, // Assuming new items get current date
+                            tamano: button.dataset.size,
+                            seeders: parseInt(button.dataset.seeders, 10),
+                            leechers: parseInt(button.dataset.leechers, 10),
+                            downloads: parseInt(button.dataset.downloads, 10),
+                            submitter: button.dataset.submitter || null,
+                            episode: button.dataset.episode ? parseInt(button.dataset.episode, 10) : null
+                            // Note: 'calidad' and 'subtitulos' objects are not fully captured here.
+                            // For a complete watchlist item, these might need to be serialized differently
+                            // or the item fetched from a temporary cache if available.
+                            // For now, using available data attributes.
+                        };
+
+                        if (WatchlistStore && typeof WatchlistStore.toggleItem === 'function') {
+                            const status = WatchlistStore.toggleItem(itemObject);
+                            if (status === 'added') {
+                                button.classList.add('in-watchlist');
+                                button.title = 'Remove from Watchlist';
+                            } else if (status === 'removed') {
+                                button.classList.remove('in-watchlist');
+                                button.title = 'Add to Watchlist';
+                            }
+                        }
                     }
                 }
             });
