@@ -61,7 +61,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 30px; /* Increased gap */
-    perspective: 1200px;
+    /* perspective: 1200px; */ /* Removed for new hover effect */
 }
 
 .results-count {

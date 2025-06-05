@@ -57,16 +57,55 @@ button:active {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--box-shadow);
-    transition: var(--transition); /* This is 'all 0.3s ease', which will cover transform */
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
     display: flex;
     flex-direction: column;
     height: 100%;
-    transform-style: preserve-3d;
+    /* transform-style: preserve-3d; */ /* Removed */
+    position: relative; /* For pseudo-element positioning */
+    overflow: hidden; /* Ensure pseudo-element is clipped */
+}
+
+.result-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 30%,
+        rgba(255, 255, 255, 0.4) 50%, /* Shine intensity for light mode */
+        rgba(255, 255, 255, 0) 70%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: translateX(-200%); /* Start off-screen to the left */
+    transition: transform 0s ease-in-out; /* No transition by default */
+    z-index: 1;
+    pointer-events: none;
+}
+
+body.dark-mode .result-card::after {
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 30%,
+        rgba(255, 255, 255, 0.15) 50%, /* Reduced shine intensity for dark mode */
+        rgba(255, 255, 255, 0) 70%,
+        rgba(255, 255, 255, 0) 100%
+    );
 }
 
 .result-card:hover {
-    transform: scale(1.03) rotateX(7deg) rotateY(-7deg); /* New 3D tilt effect */
+    transform: scale(1.03); /* New scale effect */
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0,0,0,0.1); /* Keep existing enhanced shadow */
+}
+
+.result-card:hover::after {
+    transform: translateX(200%); /* Sweep shine across */
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .card-header {
