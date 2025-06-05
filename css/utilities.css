@@ -149,3 +149,37 @@
 .empty-state p:last-of-type {
     margin-bottom: 0;
 }
+
+/* Page Transition Loader Styles */
+.page-transition-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Light theme fallback based on #F5F6FA */
+    background-color: rgba(245, 246, 250, 0.85);
+    z-index: 2000; /* Must be very high */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0s linear 0.2s; /* Hide visibility after opacity */
+}
+
+body.dark-mode .page-transition-loader {
+    /* Dark theme fallback based on #16142B */
+    background-color: rgba(22, 20, 43, 0.85);
+}
+
+.page-transition-loader.show {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s; /* Show immediately */
+}
+
+/* Optional: If loader dots need different color on this overlay */
+/* .page-transition-loader .bouncing-dots-loader div { */
+/*     background-color: var(--accent-color); */
+/* } */

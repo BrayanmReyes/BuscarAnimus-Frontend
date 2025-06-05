@@ -113,6 +113,45 @@ const UI = (function() {
                     behavior: 'smooth'
                 });
             });
+        },
+
+        initNavigationFeedback: function() {
+            const pageTransitionLoader = document.getElementById('pageTransitionLoader');
+            if (!pageTransitionLoader) {
+                console.warn('Page transition loader not found.');
+                return;
+            }
+
+            function showPageTransitionLoader() { // Local helper function
+                if (pageTransitionLoader) {
+                    pageTransitionLoader.classList.add('show');
+                }
+            }
+
+            // Attach to "Ver Anime en Emisión" button on index.html
+            const anichartLink = document.querySelector('.nav-buttons a[href="anichart.html"]');
+            if (anichartLink) {
+                anichartLink.addEventListener('click', function() {
+                    showPageTransitionLoader();
+                });
+            }
+
+            // Attach to "Volver al Buscador" button on anichart.html
+            // This selector targets any nav-button link to index.html.
+            // It's made more specific by checking if we are likely on anichart.html.
+            const backToSearchLink = document.querySelector('.nav-buttons a[href="index.html"]');
+            if (backToSearchLink && window.location.pathname.includes('anichart.html')) {
+                backToSearchLink.addEventListener('click', function() {
+                    showPageTransitionLoader();
+                });
+            }
+            // Fallback for cases where pathname might not be perfectly 'anichart.html' (e.g. hosted on subpath)
+            // but the anichart-container is present.
+            else if (backToSearchLink && document.querySelector('.anichart-container') && !anichartLink) {
+                backToSearchLink.addEventListener('click', function() {
+                    showPageTransitionLoader();
+                });
+            }
         }
     };
 })();

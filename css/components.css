@@ -57,15 +57,16 @@ button:active {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--box-shadow);
-    transition: var(--transition);
+    transition: var(--transition); /* This is 'all 0.3s ease', which will cover transform */
     display: flex;
     flex-direction: column;
     height: 100%;
+    transform-style: preserve-3d;
 }
 
 .result-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0,0,0,0.1); /* More layered shadow */
+    transform: scale(1.03) rotateX(7deg) rotateY(-7deg); /* New 3D tilt effect */
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0,0,0,0.1); /* Keep existing enhanced shadow */
 }
 
 .card-header {
@@ -457,5 +458,10 @@ button:active {
     fill: currentColor;
     width: 20px;
     height: 20px;
-    vertical-align: middle; /* Better alignment for SVG in button */
+    vertical-align: middle;
+    transition: transform 0.2s ease-in-out; /* Add this for the icon's movement */
+}
+
+#scrollToTopBtn:hover svg {
+    transform: translateY(-3px); /* Move icon up slightly more */
 }

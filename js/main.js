@@ -37,6 +37,11 @@ document.addEventListener('DOMContentLoaded', function() {
         UI.initScrollToTopButton();
     }
     
+    // Initialize Navigation Feedback
+    if (UI && typeof UI.initNavigationFeedback === 'function') {
+        UI.initNavigationFeedback();
+    }
+
     // Función para cargar preferencias almacenadas
     function loadStoredPreferences() {
         if (localStorage.getItem('serverUrl')) {

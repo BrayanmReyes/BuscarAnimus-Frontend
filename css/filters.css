@@ -145,7 +145,11 @@
 .filter-button.apply:hover {
     background-color: var(--primary-dark);
     transform: translateY(-1px);
-    box-shadow: 0 2px 5px rgba(98, 0, 234, 0.2);
+    box-shadow: 0 2px 5px rgba(78, 0, 194, 0.2); /* Default for light mode */
+}
+
+body.dark-mode .filter-button.apply:hover {
+    box-shadow: 0 2px 5px rgba(138, 66, 255, 0.2); /* For dark mode */
 }
 
 .filter-button.reset:hover {
