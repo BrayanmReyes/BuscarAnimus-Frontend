@@ -1,14 +1,29 @@
 /*responsive.css - Media queries y ajustes responsivos*/
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+    }
+
+    .header-content {
+        order: 1;
+        margin-bottom: 10px;
+    }
+
+    .theme-toggle-wrapper {
+        order: 2;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    header nav {
+        order: 3;
+    }
     h1 {
         font-size: 2.2rem;
     }
     
-    .search-form {
-        flex-direction: column;
-        gap: 15px;
-    }
     
     .form-group {
         width: 100%;
