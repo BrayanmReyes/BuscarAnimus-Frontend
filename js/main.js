@@ -42,6 +42,11 @@ document.addEventListener('DOMContentLoaded', function() {
         UI.initNavigationFeedback();
     }
 
+    // Initialize Toggle Search
+    if (UI && typeof UI.initToggleSearch === 'function') {
+        UI.initToggleSearch();
+    }
+
     // Función para cargar preferencias almacenadas
     function loadStoredPreferences() {
         if (localStorage.getItem('serverUrl')) {
