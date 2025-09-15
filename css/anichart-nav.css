@@ -2,10 +2,7 @@
 /* Estilos para botones de navegación */
 header nav {
     display: flex;
-    gap: 15px;
-    margin-top: 10px;
-    width: 100%;
-    justify-content: center;
+    gap: 10px;
 }
 
 .nav-button {

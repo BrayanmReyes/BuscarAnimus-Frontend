@@ -2,23 +2,40 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     header .container {
-        flex-direction: column;
+        flex-wrap: wrap;
     }
 
     .header-content {
+        flex-basis: 100%;
+        text-align: center;
         order: 1;
         margin-bottom: 10px;
     }
 
     .theme-toggle-wrapper {
         order: 2;
-        position: absolute;
-        top: 20px;
-        right: 20px;
+    }
+
+    .hamburger-btn {
+        display: block;
+        order: 3;
     }
 
     header nav {
-        order: 3;
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--primary-dark);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 10px 0;
+        border-radius: 0 0 15px 15px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    header nav.show {
+        display: flex;
     }
     h1 {
         font-size: 2.2rem;

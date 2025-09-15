@@ -165,6 +165,17 @@ const UI = (function() {
                     }
                 });
             }
+        },
+
+        initHamburgerMenu: function() {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const nav = document.querySelector('header nav');
+
+            if (hamburgerBtn && nav) {
+                hamburgerBtn.addEventListener('click', () => {
+                    nav.classList.toggle('show');
+                });
+            }
         }
     };
 })();

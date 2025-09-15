@@ -624,3 +624,22 @@ body.dark-mode .result-card::after {
 .toggle-search-btn .search-icon {
     margin-right: 8px;
 }
+
+/* Hamburger Button */
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1000;
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+    transition: all 0.3s ease-in-out;
+}

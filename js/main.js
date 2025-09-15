@@ -47,6 +47,11 @@ document.addEventListener('DOMContentLoaded', function() {
         UI.initToggleSearch();
     }
 
+    // Initialize Hamburger Menu
+    if (UI && typeof UI.initHamburgerMenu === 'function') {
+        UI.initHamburgerMenu();
+    }
+
     // Función para cargar preferencias almacenadas
     function loadStoredPreferences() {
         if (localStorage.getItem('serverUrl')) {
