@@ -8,7 +8,7 @@
 header {
     background-image: var(--primary-gradient); /* Changed to use gradient */
     color: #ECF0F1; /* Light gray for good contrast, should work with new gradient */
-    padding: 15px 0; /* Reduced padding */
+    padding: 8px 0; /* Further reduced padding */
     text-align: center;
     border-radius: 0 0 20px 20px; /* Kept as per instructions */
     box-shadow: var(--box-shadow); /* Kept as per instructions */
@@ -103,7 +103,7 @@ h1 {
 footer {
     background-color: var(--card-color);
     color: var(--light-text);
-    padding: 15px 0; /* Reduced padding */
+    padding: 8px 0; /* Further reduced padding */
     text-align: center;
     font-size: 0.9rem;
     border-top: 1px solid var(--card-footer-border);
