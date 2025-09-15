@@ -8,7 +8,7 @@
 header {
     background-image: var(--primary-gradient); /* Changed to use gradient */
     color: #ECF0F1; /* Light gray for good contrast, should work with new gradient */
-    padding: 25px 0; /* Increased padding */
+    padding: 15px 0; /* Reduced padding */
     text-align: center;
     border-radius: 0 0 20px 20px; /* Kept as per instructions */
     box-shadow: var(--box-shadow); /* Kept as per instructions */
@@ -25,12 +25,14 @@ header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     padding: 0 20px;
 }
 
 /*Alinear texto izquierda*/
 .header-content {
     text-align: left;
+    flex-grow: 1;
 }
 
 h1 {
@@ -57,6 +59,16 @@ h1 {
     transition: var(--transition);
 }
 
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.form-group {
+    flex: 1 1 200px;
+}
+
 .results-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -80,7 +92,7 @@ h1 {
 footer {
     background-color: var(--card-color);
     color: var(--light-text);
-    padding: 25px 0; /* Increased padding slightly */
+    padding: 15px 0; /* Reduced padding */
     text-align: center;
     font-size: 0.9rem;
     border-top: 1px solid var(--card-footer-border);
