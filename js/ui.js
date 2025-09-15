@@ -148,6 +148,23 @@ const UI = (function() {
                     });
                 }
             });
+        },
+
+        initToggleSearch: function() {
+            const toggleBtn = document.getElementById('toggle-search-btn');
+            const searchArea = document.getElementById('search-area');
+
+            if (toggleBtn && searchArea) {
+                toggleBtn.addEventListener('click', () => {
+                    searchArea.classList.toggle('hidden');
+                    const toggleText = toggleBtn.querySelector('.toggle-text');
+                    if (searchArea.classList.contains('hidden')) {
+                        toggleText.textContent = 'Mostrar Busqueda';
+                    } else {
+                        toggleText.textContent = 'Ocultar Busqueda';
+                    }
+                });
+            }
         }
     };
 })();

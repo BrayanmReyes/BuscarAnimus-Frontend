@@ -56,7 +56,18 @@ h1 {
     padding: 30px; /* Increased padding */
     box-shadow: var(--box-shadow);
     margin-bottom: 40px;
-    transition: var(--transition);
+    transition: all 0.3s ease-in-out;
+    max-height: 500px; /* Adjust as needed */
+    overflow: hidden;
+    border: 1px solid var(--card-footer-border);
+}
+
+.search-area.hidden {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-color: transparent;
+    margin-bottom: 0;
 }
 
 .search-form {

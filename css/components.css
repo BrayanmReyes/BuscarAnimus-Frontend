@@ -600,3 +600,27 @@ body.dark-mode .result-card::after {
     font-weight: 600;
     /* .nav-button class provides background, color, border-radius, transition */
 }
+
+/* Toggle Search Button */
+.toggle-search-btn {
+    background-color: var(--card-color);
+    color: var(--text-color);
+    border: 1px solid var(--card-footer-border);
+    padding: 10px 16px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: var(--transition);
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.toggle-search-btn:hover {
+    background-color: var(--card-footer-bg);
+}
+
+.toggle-search-btn .search-icon {
+    margin-right: 8px;
+}
