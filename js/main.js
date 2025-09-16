@@ -1,36 +1,39 @@
 /*main.js - Inicialización y manejo del formulario*/
 document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('search-form');
-    const animeNameInput = document.getElementById('anime-name');
-    const timezoneSelect = document.getElementById('timezone');
-    const serverUrlInput = document.getElementById('server-url');
     
     // Cargar preferencias almacenadas
     loadStoredPreferences();
     
-    // Configurar el evento submit del formulario
-    searchForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const animeName = animeNameInput.value.trim();
-        const timezone = timezoneSelect.value;
-        const serverUrl = serverUrlInput.value.trim();
-        
-        if (!animeName) {
-            UI.showError('Por favor, introduce el nombre de un anime');
-            return;
-        }
-        
-        // Guardar preferencias en localStorage
-        savePreferences(serverUrl, timezone);
-        
-        // Resetear UI y mostrar loading
-        UI.resetUI();
-        UI.showLoading();
-        
-        // Realizar búsqueda
-        searchAnime(animeName, timezone, serverUrl);
-    });
+    if (searchForm) {
+        const animeNameInput = document.getElementById('anime-name');
+        const timezoneSelect = document.getElementById('timezone');
+        const serverUrlInput = document.getElementById('server-url');
+
+        // Configurar el evento submit del formulario
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const animeName = animeNameInput.value.trim();
+            const timezone = timezoneSelect.value;
+            const serverUrl = serverUrlInput.value.trim();
+
+            if (!animeName) {
+                UI.showError('Por favor, introduce el nombre de un anime');
+                return;
+            }
+
+            // Guardar preferencias en localStorage
+            savePreferences(serverUrl, timezone);
+
+            // Resetear UI y mostrar loading
+            UI.resetUI();
+            UI.showLoading();
+
+            // Realizar búsqueda
+            searchAnime(animeName, timezone, serverUrl);
+        });
+    }
 
     // Initialize Scroll to Top button
     if (UI && typeof UI.initScrollToTopButton === 'function') {

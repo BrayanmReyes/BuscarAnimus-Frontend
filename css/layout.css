@@ -38,9 +38,9 @@ header .theme-toggle-wrapper {
 
 /*Alinear texto izquierda*/
 .header-content {
-    text-align: center;
+    text-align: left;
     flex-grow: 1;
-    padding: 0 60px; /* Add padding to avoid overlap with slider and actions */
+    padding-left: 70px;
 }
 
 .header-actions {
