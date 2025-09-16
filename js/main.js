@@ -1,14 +1,25 @@
 /*main.js - Inicialización y manejo del formulario*/
 document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('search-form');
-    
-    // Cargar preferencias almacenadas
-    loadStoredPreferences();
+    const timezoneSelect = document.getElementById('timezone');
+    const serverUrlInput = document.getElementById('server-url');
     
     if (searchForm) {
         const animeNameInput = document.getElementById('anime-name');
-        const timezoneSelect = document.getElementById('timezone');
-        const serverUrlInput = document.getElementById('server-url');
+
+        // Cargar preferencias almacenadas
+        loadStoredPreferences();
+
+        // Función para cargar preferencias almacenadas
+        function loadStoredPreferences() {
+            if (localStorage.getItem('serverUrl')) {
+                serverUrlInput.value = localStorage.getItem('serverUrl');
+            }
+
+            if (localStorage.getItem('timezone')) {
+                timezoneSelect.value = localStorage.getItem('timezone');
+            }
+        }
 
         // Configurar el evento submit del formulario
         searchForm.addEventListener('submit', function(e) {
@@ -53,17 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize Hamburger Menu
     if (UI && typeof UI.initHamburgerMenu === 'function') {
         UI.initHamburgerMenu();
-    }
-
-    // Función para cargar preferencias almacenadas
-    function loadStoredPreferences() {
-        if (localStorage.getItem('serverUrl')) {
-            serverUrlInput.value = localStorage.getItem('serverUrl');
-        }
-        
-        if (localStorage.getItem('timezone')) {
-            timezoneSelect.value = localStorage.getItem('timezone');
-        }
     }
     
     // Función para guardar preferencias
