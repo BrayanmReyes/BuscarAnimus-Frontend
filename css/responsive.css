@@ -21,6 +21,12 @@
     .hamburger-btn {
         display: block;
     }
+
+    .header-actions .nav-buttons.show .theme-toggle-wrapper {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
     h1 {
         font-size: 2.2rem;
     }
