@@ -174,6 +174,7 @@ const UI = (function() {
             if (hamburgerBtn && nav) {
                 hamburgerBtn.addEventListener('click', () => {
                     nav.classList.toggle('show');
+                    hamburgerBtn.classList.toggle('active');
                 });
             }
         }
