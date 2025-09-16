@@ -31,6 +31,7 @@ header .container {
 /*Alinear texto izquierda*/
 .header-content {
     text-align: left;
+    flex-grow: 1;
 }
 
 .header-actions {
