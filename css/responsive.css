@@ -52,6 +52,10 @@
     .anime-title {
         font-size: 1.1rem;
     }
+
+    .anichart-container {
+        height: 80vh;
+    }
 }
 
 @media (max-width: 480px) {
