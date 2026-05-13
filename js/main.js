@@ -21,6 +21,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+        // Check URL parameters for search query
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchQuery = urlParams.get('search');
+        if (searchQuery) {
+            animeNameInput.value = searchQuery;
+
+            // Allow a short delay for everything to initialize before submitting
+            setTimeout(() => {
+                const submitEvent = new Event('submit', {
+                    'bubbles': true,
+                    'cancelable': true
+                });
+                searchForm.dispatchEvent(submitEvent);
+
+                // Clear the query param from URL without refreshing
+                const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                window.history.pushState({path:newUrl}, '', newUrl);
+            }, 100);
+        }
+
         // Configurar el evento submit del formulario
         searchForm.addEventListener('submit', function(e) {
             e.preventDefault();
