@@ -117,8 +117,43 @@
         </div>
     </header>
 
+    <style>
+        .days-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .day-btn {
+            background-color: var(--card-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .day-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        .day-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+    </style>
+
     <div class="main-content-wrapper">
         <div class="container">
+            <div class="days-nav" id="days-nav">
+                <!-- Days buttons will be injected here -->
+            </div>
+
             <div id="error-message" class="error-message"></div>
             <div id="loading" class="loading">
                 <div class="bouncing-dots-loader">
