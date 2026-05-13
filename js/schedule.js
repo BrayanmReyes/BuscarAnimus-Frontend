@@ -189,16 +189,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 const title = this.getAttribute('data-title');
                 const episode = this.getAttribute('data-episode');
 
-                // Improve search for long titles by removing special chars and taking only the first 3 words
-                // 1. Remove special characters that often mess up torrent searches
-                let cleanTitle = title.replace(/[:\-.,!?()\[\]]/g, ' ').trim();
-                // 2. Replace multiple spaces with a single space
-                cleanTitle = cleanTitle.replace(/\s+/g, ' ');
-                // 3. Take up to the first 3 words
+                // Improve search for long titles by removing special chars, taking the first 3 words, and appending season info
+                let cleanTitle = title.replace(/[:\-.,!?()\[\]]/g, ' ').trim().replace(/\s+/g, ' ');
                 const words = cleanTitle.split(' ');
-                if (words.length > 3) {
-                    cleanTitle = words.slice(0, 3).join(' ');
-                }
+                let baseQuery = words.slice(0, 3).join(' ');
+
+                // Extract season/part identifiers from the original title
+                const seasonStrRegex = /(?:\d+(?:st|nd|rd|th)\s+season|season\s+\d+|part\s+\d+|cour\s+\d+)/gi;
+                const romanRegex = /\b(II|III|IV|V|VI|VII|VIII|IX)\b/g;
+                const standaloneNumRegex = /\b([2-9])\b(?!.*\b\d+\b)/g;
+
+                const seasonStrMatches = title.match(seasonStrRegex) || [];
+                const romanMatches = title.match(romanRegex) || [];
+                const numMatches = title.match(standaloneNumRegex) || [];
+
+                const allIndicators = [...seasonStrMatches, ...romanMatches, ...numMatches];
+
+                allIndicators.forEach(indicator => {
+                    const cleanIndicator = indicator.replace(/[:\-.,!?()\[\]]/g, ' ').trim().replace(/\s+/g, ' ');
+                    const regex = new RegExp(`\\b${cleanIndicator}\\b`, 'i');
+                    if (!regex.test(baseQuery)) {
+                        baseQuery += ` ${cleanIndicator}`;
+                    }
+                });
+
+                cleanTitle = baseQuery.replace(/\s+/g, ' ').trim();
 
                 const formattedEpisode = String(episode).padStart(2, '0');
                 const searchQuery = `${cleanTitle} ${formattedEpisode}`;
