@@ -346,7 +346,7 @@ const CardBuilder = (function() {
                     url = `https://web.stremio.com/#/detail/other/bt:${infoHash}`;
                     break;
                 case 'desktop':
-                    url = `stremio://detail/other/bt:${infoHash}`;
+                    url = `stremio:///detail/other/bt:${infoHash}`;
                     break;
                 default:
                     UI.showError('Versión de Stremio no válida.');
