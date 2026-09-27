@@ -39,13 +39,12 @@ button {
 
 button:hover {
     background-color: var(--accent-color);
-    filter: brightness(90%);
+    filter: brightness(110%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 10px rgba(232, 0, 116, 0.3); /* Hover shadow for new Magenta/Pink accent */
+    box-shadow: var(--box-shadow-glow);
 }
 
 button:active {
-    /* transform: translateY(0); */ /* Removed as animation handles transform */
     box-shadow: 0 2px 4px rgba(232, 0, 116, 0.2); /* Active shadow for new Magenta/Pink accent */
     filter: brightness(85%);
     animation: button-pulse 0.2s ease-out;
@@ -61,7 +60,6 @@ button:active {
     display: flex;
     flex-direction: column;
     height: 100%;
-    /* transform-style: preserve-3d; */ /* Removed */
     position: relative; /* For pseudo-element positioning */
     overflow: hidden; /* Ensure pseudo-element is clipped */
 }
@@ -99,8 +97,8 @@ body.dark-mode .result-card::after {
 }
 
 .result-card:hover {
-    transform: scale(1.03); /* New scale effect */
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0,0,0,0.1); /* Keep existing enhanced shadow */
+    transform: scale(1.03) translateY(-2px); /* New scale effect */
+    box-shadow: var(--box-shadow-glow);
 }
 
 .result-card:hover::after {

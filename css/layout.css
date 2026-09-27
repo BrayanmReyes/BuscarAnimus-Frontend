@@ -18,8 +18,6 @@ header {
     animation: gradient-flow 18s ease infinite;
 }
 
-/* header::before pseudo-element removed */
-
 header .container {
     display: flex;
     justify-content: space-between;
