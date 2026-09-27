@@ -13,77 +13,6 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/filters.css">
     <link rel="stylesheet" href="css/anichart-nav.css">
-    <style>
-        .schedule-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .schedule-card {
-            background-color: var(--card-color);
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .schedule-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        .schedule-img-container {
-            width: 100%;
-            height: 280px;
-            position: relative;
-        }
-        .schedule-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .schedule-info {
-            padding: 15px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .schedule-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text-color);
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .schedule-episode {
-            font-size: 0.9rem;
-            color: #ff6b6b;
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
-        .search-torrent-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.2s;
-            text-align: center;
-            width: 100%;
-            font-size: 0.9rem;
-        }
-        .search-torrent-btn:hover {
-            background-color: var(--primary-hover);
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -117,36 +46,6 @@
         </div>
     </header>
 
-    <style>
-        .days-nav {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .day-btn {
-            background-color: var(--card-color);
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-        .day-btn:hover {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-        .day-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-    </style>
 
     <div class="main-content-wrapper">
         <div class="container">
